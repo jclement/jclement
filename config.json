@@ -6,7 +6,7 @@
     "description": ""
   },
   "plugins": [
-    "./plugins/paginator.coffee"
+    "./plugins/articles.coffee"
   ],
   "require": {
     "moment": "moment",
@@ -19,8 +19,5 @@
   "markdown": {
     "smartLists": true,
     "smartypants": true
-  },
-  "paginator": {
-    "perPage": 3
   }
 }

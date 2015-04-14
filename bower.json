@@ -12,7 +12,7 @@
   "moduleType": [
     "node"
   ],
-  "license": "MIT",
+  "license": "BSD",
   "ignore": [
     "**/.*",
     "node_modules",

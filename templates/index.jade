@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  - var articles = env.helpers.getArticles(contents);
   each article in articles
     article.article.intro
       header
