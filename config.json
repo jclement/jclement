@@ -6,7 +6,7 @@
     "description": ""
   },
   "plugins": [
-    "./plugins/articles.coffee"
+    "./plugins/articles.js"
   ],
   "require": {
     "moment": "moment",
