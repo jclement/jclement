@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/jsc
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://jclement.ca
+  * I am jsc (https://keybase.io/jsc) on keybase.
+  * I have a public key with fingerprint 6B42 6A57 875A E6A7 C910  EF91 4378 F71A B4EA 336E
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.7.7"
+        },
+        "key": {
+            "fingerprint": "6b426a57875ae6a7c910ef914378f71ab4ea336e",
+            "host": "keybase.io",
+            "key_id": "4378F71AB4EA336E",
+            "uid": "52e387e0223a2c0c439eae813f1d7700",
+            "username": "jsc"
+        },
+        "merkle_root": {
+            "ctime": 1427206829,
+            "hash": "d51d69cbac85b52dc4226c04fd95ce01ecc69a158b0b25f85b429b653a3318cece8d4c3ad0d1aff5d1754e59d34a932782ef9d00aafad7d3c260ebce189fede1",
+            "seqno": 183027
+        },
+        "service": {
+            "hostname": "jclement.ca",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1427207127,
+    "expire_in": 157680000,
+    "prev": "ac355cca1ac77a8da1f1c2eb00a98260501f27ebcca5b2e91e8572f8ef0ad32a",
+    "seqno": 26,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owFVkl1sFUUYhk+pFDkooFeS9KJuTE2kPZmZ3dmZPWgpNa0l3nhjTRrqyezMN6fb
+n7OH3W21NkVr1KQKiYm0CRFJmyhG0EKEBLUXciGpQPxr+AuNEmqANFAbDV6I9We2
+gShztbPfM++87/fN2/dXZrIV/GjLHzc+LM9UnJ73M88+EJ8ftPxQDVj5QUv2BFBK
+0q+S6AUrb3XDgC9iyAVhTSlUkOuKa24zdVY/RHEQlgyFcizHrKG6FE8P66BUhKgc
+BamW5foOcQVlnFEBrmDSwwi0hx2bcc2w8B0Qtu2CkewM4+SuW61lzUKgzN+Ub2F4
+S5PTvMXwzabWt1ygBGzOABFiCyKRdGwPBHBsa6wYQygFY4huR+qKZWq1F6LuHihE
+YbicVyZBWsUOYQS5nHjGjIg7Da8oVq4nfSE59SlR0iHElcjRyqMSEAYpXU9gyn3k
+E6oN5BDPd6ltQmEuQQJXjrSFQgoLranCjDpAPWU7wrMJ48Q0QyEkhBaKKVsSF4Ev
+AXNPgwJs3MewvRQac9xGhA2l+6g/kJD6Tjt2J5jsgV4zmpwU5kw5CpNQhj2m0Jkk
+5Tifhk4Gyin5AviFZY2PJBT8oKTMvP4/UGzQuxrCMGF1FrxYDiIoBClBmcuRWelF
+0G80hbQplVJgIRkTXAmssSTgm2AeN5EowpowE0wK6hPwMHDKiOagkVA2Ef/FJK4x
+KopGMw6KJZH0RWANjVRU35OpyGaqVq5In2wmu3r9nXe8J1j1T7t9GV/YtCM4O9sy
+Oz068TTZty5b/Xrj3rjB2/Vt1cKBEdWfHDz6U/Dp3GIxC6eHr1y48dCheGz3443b
+aifdpcGdbfXFL9c2PBZ+vfvB+Oq64bmhA5c2tn0z/ok4cuKr/ZuPzHTt/+3W33Tu
+nZrndsS6qfLNw5Mb81v3Nef8kfbWE49+Xz+eP9a4pN/3Pti7qfq+9lsdi5M/39tx
+8wdx/F29MDVzc37P8HtzMPrIteltrW+NTeH6XzZcX+qdYFO1478f/vGzi3+OPTPx
+8sjOvmsLr5y6VKXWtJ75bvrXlScvr+luqP2i8eHnO449eeZQ5cerPt/w11NNo7uu
+vzS/ebbttSdWzL96bu0bWxfxvw==
+=nGay
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jsc
+
+==================================================================
