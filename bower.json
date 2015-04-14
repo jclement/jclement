@@ -6,7 +6,8 @@
   ],
   "dependencies": {
     "bootstrap": "*",
-    "jquery": "*"
+    "jquery": "*",
+    "underscore": "*"
   },
   "moduleType": [
     "node"
