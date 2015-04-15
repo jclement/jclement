@@ -414,7 +414,8 @@
   ],
   "js": [
     "tooltip.js",
-    "affix.js"
+    "affix.js",
+    "collapse.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=0a43a4c3caa06d621812"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=8aa578696ac9eb834115"
 }
