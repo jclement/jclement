@@ -159,10 +159,10 @@
     "@navbar-default-toggle-hover-bg": "#ddd",
     "@navbar-default-toggle-icon-bar-bg": "#888",
     "@navbar-default-toggle-border-color": "#ddd",
-    "@navbar-inverse-color": "#eee",
-    "@navbar-inverse-bg": "@brand-warning",
+    "@navbar-inverse-color": "lighten(@gray-light, 15%)",
+    "@navbar-inverse-bg": "@brand-primary",
     "@navbar-inverse-border": "darken(@navbar-inverse-bg, 10%)",
-    "@navbar-inverse-link-color": "#eee",
+    "@navbar-inverse-link-color": "lighten(@gray-light, 15%)",
     "@navbar-inverse-link-hover-color": "#fff",
     "@navbar-inverse-link-hover-bg": "transparent",
     "@navbar-inverse-link-active-color": "@navbar-inverse-link-hover-color",
@@ -416,5 +416,5 @@
     "tooltip.js",
     "affix.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=0a43a4c3caa06d621812"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=cf5509078d3b5079b63b"
 }
