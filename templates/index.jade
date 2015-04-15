@@ -3,9 +3,11 @@ extends layout
 block header
 
 block content
-  div.jumbotron
-    h1 jclement.ca
-    p There is content here
+  div.jumbotron.main-header.hidden-xs.hidden-sm
+    a(href="contact/jclement-qr.png")
+      img(src="contact/jclement-qr.png", width="150px" height="150px").pull-right
+    h1= locals.name
+    p= locals.description
 
   div.row
     div.col-md-6

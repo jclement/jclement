@@ -3,7 +3,7 @@
     "url": "http://localhost:8080",
     "name": "jclement.ca",
     "owner": "Jeff Clement",
-    "description": ""
+    "description": "musings and projects from a Canadian geek"
   },
   "plugins": [
     "./plugins/articles.js"

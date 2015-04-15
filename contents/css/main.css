@@ -10,6 +10,11 @@ body {
   padding-top: 70px;
 }
 
+.main-header {
+  padding: 20px;
+}
+
+
 /* code styling */
 
 code {
@@ -30,6 +35,13 @@ p code {
   background: #fffff3;
 
   white-space: nowrap;
+}
+
+.article img {
+  /* make article images size to parent element */
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* syntax hl stuff */
