@@ -160,7 +160,7 @@
     "@navbar-default-toggle-icon-bar-bg": "#888",
     "@navbar-default-toggle-border-color": "#ddd",
     "@navbar-inverse-color": "#eee",
-    "@navbar-inverse-bg": "@brand-warning",
+    "@navbar-inverse-bg": "@brand-danger",
     "@navbar-inverse-border": "darken(@navbar-inverse-bg, 10%)",
     "@navbar-inverse-link-color": "#eee",
     "@navbar-inverse-link-hover-color": "#fff",
@@ -417,5 +417,5 @@
     "affix.js",
     "collapse.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=8aa578696ac9eb834115"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=2431ff4eae78776ea6d4"
 }

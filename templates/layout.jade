@@ -12,6 +12,7 @@ html(lang='en')
           = locals.name
       link(rel='alternate', href=locals.url+'/feed.xml', type='application/rss+xml', title=locals.description)
       link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+      link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
       link(rel='stylesheet', href='/css/main.css')
   body(class=bodyclass)
 
@@ -46,6 +47,9 @@ html(lang='en')
       div#content
         block content
           h2 Placeholder
+
+    div.container
+      
 
     <!-- Page Footer -->
     div.container
