@@ -1,5 +1,4 @@
 build/
-contents/lib/
 node_modules/
 *.swp
 *.swo

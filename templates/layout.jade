@@ -11,7 +11,7 @@ html(lang='en')
         block title
           = locals.name
       link(rel='alternate', href=locals.url+'/feed.xml', type='application/rss+xml', title=locals.description)
-      link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
+      link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
       link(rel='stylesheet', href='/css/main.css')
   body(class=bodyclass)
 
@@ -45,7 +45,7 @@ html(lang='en')
             p.description= locals.description
       div#content
         block content
-          h2 Welcome to zombocom!
+          h2 Placeholder
 
     <!-- Page Footer -->
     div.container
@@ -55,5 +55,5 @@ html(lang='en')
             p &copy; #{ new Date().getFullYear() } #{ locals.owner } 
 
     <!-- Javascript Dependencies -->
-    script(src="/lib/jquery/dist/jquery.min.js")
-    script(src="/lib/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/lib/jquery/jquery.min.js")
+    script(src="/lib/bootstrap/js/bootstrap.min.js")
