@@ -12,7 +12,8 @@ Smart cards let you store the RSA private key information on a tamper resistant 
 
 Unfortunately, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
-This article covers how I setup and use smart cards.
+<div class="alert alert-warning"><b>Note:</b> This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
+Simon Josefsson.  Much like the reason Simon wrote his post, this article was primarily created to document my setup for my future reference.</div>
 
 Roughly:
 
