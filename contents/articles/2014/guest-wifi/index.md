@@ -3,6 +3,7 @@ title:  Guest Wifi via. TOR
 tags: tor networking openbsd
 date: 2014-04-06
 template: article.jade
+comments: true
 ---
 
 As a fun project, and to experiment a bit more with VLANs and my new router, I decided to setup a new "Public" Wifi off of our home Internet connection.  Because I don't want to be particularly careful what traffic I allow through, I decided force all of it through [TOR][tor] so that it can't come back to me (as a bonus this also effectively rate limits clients).  

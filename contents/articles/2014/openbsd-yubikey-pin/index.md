@@ -3,6 +3,7 @@ title:  OpenBSD Yubikey Authentication with PIN
 tags: openbsd yubikey
 template: article.jade
 date: 2014-05-05
+comments: true
 ---
 
 I think that using the Yubikey for authentication is worthwhile. OpenBSD's

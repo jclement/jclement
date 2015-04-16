@@ -3,6 +3,7 @@ title:  OpenBSD Yubikey Authentication
 tags: openbsd yubikey
 template: article.jade
 date: 2014-05-05
+comments: true
 ---
 
 OpenBSD includes out-of-the-box support for login via. [YubiKey][yubikey].  Yay!
