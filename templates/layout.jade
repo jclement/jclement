@@ -31,6 +31,10 @@ html(lang='en')
             li
               a(href="/") Home
             li
+              a(href="https://www.flickr.com/photos/jeffreyclement/") 
+                - Photos
+                i.fa.fa-flickr
+            li
               a(href="/contact/") Contact
           form.navbar-form.navbar-right(action="https://duckduckgo.com/", method="get", role="search")
             input(type="hidden", name="sites", value="jclement.ca")
@@ -40,10 +44,10 @@ html(lang='en')
     div.container
       div.header
         block header
-          div.logo
+          div.page-header
             h1
               a(href=locals.url)= locals.name
-            p.description= locals.description
+              small= locals.description
       div#content
         block content
           h2 Placeholder

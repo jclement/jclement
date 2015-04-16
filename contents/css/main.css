@@ -14,6 +14,14 @@ body {
   padding: 20px;
 }
 
+.toc .table-condensed > thead > tr > th, 
+.toc .table-condensed > tbody > tr > th, 
+.toc .table-condensed > tfoot > tr > th, 
+.toc .table-condensed > thead > tr > td, 
+.toc .table-condensed > tbody > tr > td, 
+.toc .table-condensed > tfoot > tr > td {
+  padding: 2px;
+}
 
 /* code styling */
 
