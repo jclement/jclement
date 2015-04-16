@@ -59,7 +59,12 @@ html(lang='en')
       div.footer
         block footer
           section.copy
-            p &copy; #{ new Date().getFullYear() } #{ locals.owner } 
+            p 
+              | &copy; #{ new Date().getFullYear() } 
+              a(href="/contact/") #{ locals.owner } 
+              | &middot;
+              a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J") 
+                i.fa.fa-bitcoin
 
     <!-- Javascript Dependencies -->
     script(src="/lib/jquery/jquery-1.11.2.min.js")
