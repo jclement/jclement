@@ -10,8 +10,9 @@ block prepend title
 block header
   if page.metadata.draft
     p.alert.alert-warning 
+      i.fa.fa-pencil.fa-2x.pull-left(style="margin-top:-5px")
       b WARNING:
-      | &nbsp; This article is a draft and is not currently complete.
+      | &nbsp; This article is a work in progress and is likely full of glaring issues, spelling mistakes, and other shenanigans.  Proceed at your own peril!
   div.page-header
     h1= page.title
       

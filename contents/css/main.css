@@ -29,6 +29,39 @@ body {
   margin-top: 30px;
 }
 
+.alert-type-note:before {
+  font-weight: bold;
+  content: "NOTE: ";
+}
+
+/*
+.alert-type-note:before {
+  float: left;
+  margin-top: -5px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 2em;
+  padding-right: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "\f040";
+}
+*/
+
+.alert-type-warning:before {
+  font-weight: bold;
+  content: "WARNING: ";
+}
+
+.alert-type-danger:before {
+  font-weight: bold;
+  content: "DANGER: ";
+}
+
+
+
 /* code styling */
 
 code {
