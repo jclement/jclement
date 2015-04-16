@@ -15,19 +15,20 @@ block content
       h3 Articles:
       table.table.table-condensed.table-striped
         each article in articles
-          tr 
-            td
-              a(href=article.url)= article.title 
-            td= moment.utc(article.date).format('DD. MMMM YYYY')
+          if !article.metadata.suppress
+            tr 
+              td
+                a(href=article.url)= article.title 
+              td= moment.utc(article.date).format('DD. MMMM YYYY')
     div.col-md-6
       h3 Projects:
       table.table.table-condensed.table-striped
         each project in contents.projects
-          - console.log(project)
-          tr
-            td(style="width:0px")
-              if project.metadata.url.indexOf("github") != -1
-                i.fa.fa-github
-            td
-              a(href=project.metadata.url)= project.metadata.name
-            td(style="width:100%")= project.metadata.description
+          if !project.metadata.suppress
+            tr
+              td(style="width:0px")
+                if project.metadata.url.indexOf("github") != -1
+                  i.fa.fa-github
+              td
+                a(href=project.metadata.url)= project.metadata.name
+              td(style="width:100%")= project.metadata.description
