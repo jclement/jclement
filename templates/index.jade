@@ -18,6 +18,9 @@ block content
           if !article.metadata.suppress
             tr 
               td
+                if article.metadata.draft
+                  i.fa.fa-pencil
+                  | &nbsp; 
                 a(href=article.url)= article.title 
               td= moment.utc(article.date).format('DD. MMMM YYYY')
     div.col-md-6

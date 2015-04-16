@@ -2,6 +2,7 @@
 title: Using GPG with Smart Cards
 date: 2015-04-14
 template: article.jade
+draft: true
 suppress: true
 comments: true
 ---
