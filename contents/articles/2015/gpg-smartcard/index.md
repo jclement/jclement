@@ -15,7 +15,7 @@ Smart cards let you store the RSA private key information on a tamper resistant 
 
 Unfortunately, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
-<div class="alert alert-warning"><b>Note:</b> This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
+<div class="alert alert-info alert-type-note">This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
 Simon Josefsson.  Much like the reason Simon wrote his post, this article was primarily created to document my setup for my future reference.</div>
 
 Roughly:
@@ -61,7 +61,7 @@ Install additional dependencies on the machine:
 $ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
 ```
 
-<div class="alert alert-info"><b>Note:</b> haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
+<div class="alert alert-info alert-type-note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
 
 Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)):
 
@@ -80,9 +80,7 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 !
 ```
 
-<div class="alert alert-danger">
-<i class="glyphicon glyphicon-exclamation-sign"></i> Unplug your network cable now and verify that machine no longer has network connectivity.
-</div>
+<div class="alert alert-danger alert-type-danger">Unplug your network cable now and verify that machine no longer has network connectivity.</div>
 
 ## Generating the GPG keys
 
@@ -482,8 +480,8 @@ $ gpg2 -a --export-secret-key  0x2896DB4A0E427716 >> /media/BACKUP/2896DB4A0E427
 $ gpg2 -a --export-secret-subkeys  0x2896DB4A0E427716 >> /media/BACKUP/2896DB4A0E427716.sub.key
 ```
 
-<div class="alert alert-danger">
-<i class="glyphicon glyphicon-exclamation-sign"></i> Be absolutely sure you have a backup of your GPG keys and revocation certificate on a separate USB stick before you continue.  Remember this is a LiveCD and any work you do on this environment is erased upon reboot.  This backup is necessary for several reasons:
+<div class="alert alert-danger alert-type-danger">
+Be absolutely sure you have a backup of your GPG keys and revocation certificate on a separate USB stick before you continue.  Remember this is a LiveCD and any work you do on this environment is erased upon reboot.  This backup is necessary for several reasons:
 <ol>
  <li>If your smart card is lost or damaged you can create a new one and (optionally) revoke the sub-keys that were in use on the previous card.
  <li>The sub-keys on the smart card are limited and can not sign other keys, change your expiry date, or add UIDs to your existing key
