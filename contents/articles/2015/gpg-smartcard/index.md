@@ -506,6 +506,8 @@ The smart card can now be used for encryption, signing and authentication (SSH).
 ### Required software
 ### Outstanding issues
 
+1. gnome-keychain is the bain of my existance...
+
 ## Windows
 ### Required software
 
@@ -537,6 +539,42 @@ Sometimes Putty doesn't authenticate using the smart card.  I'm not sure why thi
 
 ## OSX
 ### Required software
+
+Download and install [GPGTools](https://gpgtools.org/) (I installed GPG Suite Beta 6).
+
+### Configuration
+
+Make sure to load your public key into GPG and then link your keys to the smartcard.
+
+```sh
+$ gpg --import << public.key
+$ gpg --card-status
+```
+
+GPGTools has very nice integration with Mail.App and everything just works.
+
+![Mail.App](osx/mail.png)
+
+Add the following to your *.bashrc* or *.zshrc* to pull in the gpg-agent environment variables when you open new terminals.  This is required for SSH from the CLI to work properly.
+
+```bash
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+     . "${HOME}/.gpg-agent-info"
+       export GPG_AGENT_INFO
+       export SSH_AUTH_SOCK
+       export SSH_AGENT_PID
+fi
+```
+
+The *.gnupg/gpg-agent.conf* should look something like this (the last two lines being very important):
+
+```
+pinentry-program /usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac
+default-cache-ttl 600
+max-cache-ttl 7200
+enable-ssh-support
+write-env-file
+```
 
 # References
 
