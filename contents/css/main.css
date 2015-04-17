@@ -29,9 +29,31 @@ body {
   margin-top: 30px;
 }
 
-.alert-type-note:before {
-  font-weight: bold;
-  content: "NOTE: ";
+.note {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 60px;
+}
+
+
+.note:before {
+  float: left;
+  margin-top: -5px;
+  margin-left: -45px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 2em;
+  padding-right: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "\f05a";
 }
 
 .warning {
@@ -49,7 +71,7 @@ body {
 .warning:before {
   float: left;
   margin-top: -5px;
-  margin-left: -40px;
+  margin-left: -45px;
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 2em;
@@ -58,20 +80,35 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
-  content: "\f040";
+  content: "\f071";
 }
 
-.alert-type-warning:before {
-  font-weight: bold;
-  content: "WARNING: ";
+.danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 60px;
 }
 
-.alert-type-danger:before {
-  font-weight: bold;
-  content: "DANGER: ";
+
+.danger:before {
+  float: left;
+  margin-top: -5px;
+  margin-left: -45px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 2em;
+  padding-right: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "\f071";
 }
-
-
 
 /* code styling */
 
