@@ -77,9 +77,26 @@ html(lang='en')
               a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J") 
                 i.fa.fa-bitcoin
               | &nbsp;&middot;&nbsp;
+              a(href="#").mail-link
+                i.fa.fa-envelope
+              | &nbsp;&middot;&nbsp;
               a(href="https://twitter.com/charsplat") 
                 i.fa.fa-twitter
+              | &nbsp;&middot;&nbsp;
+              a(href="https://github.com/jclement") 
+                i.fa.fa-github
+              | &nbsp;&middot;&nbsp;
+              a(href="http://www.linkedin.com/profile/view?id=6394933") 
+                i.fa.fa-linkedin
 
     <!-- Javascript Dependencies -->
     script(src="/lib/jquery/jquery-1.11.2.min.js")
     script(src="/lib/bootstrap/js/bootstrap.min.js")
+    script.
+      $(function() {
+        var addr = "", a = [ 106, 115, 99, 64, 110, 100, 100, 110, 46, 110, 101, 116 ];
+        for(var i=0; i< a.length; i++) {addr = addr + String.fromCharCode(a[i]);}
+        $(".mail-addr").text(addr);
+        $(".mail-link").attr("href", "mailto:" + addr);
+      });
+      

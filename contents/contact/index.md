@@ -10,7 +10,7 @@ template: page.jade
 <tbody>
 <tr>
 <th>E-Mail:</th>
-<td class="protectedEmailAddress">jsc at nddn dot net</td>
+<td><a href="#" class="mail-link"><span class="mail-addr">jsc at nddn dot net</span></a></td>
 </tr>
 <tr>
 <th><a href="http://www.gnupg.org/">GnuPG</a>:</th>
@@ -41,10 +41,6 @@ template: page.jade
 <tr>
 <th>Geocaching.com:</th>
 <td><a href="http://www.geocaching.com/profile/?guid=f51076ec-b6e9-4acc-ae68-a8855c024edf">iMinions</a></td>
-</tr>
-<tr>
-<th>Namecoin:</th>
-<td><a href="http://explorer.dot-bit.org/n/86451">p/jclement</a></td>
 </tr>
 <tr>
 <th><a href="https://threema.ch/en/">Threema</a>:</th>
