@@ -110,6 +110,10 @@ body {
   content: "\f071";
 }
 
+.nowrap {
+  white-space:nowrap;
+}
+
 /* code styling */
 
 code {
