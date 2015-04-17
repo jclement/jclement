@@ -536,7 +536,15 @@ If the smart card isn't present then the above operations would fail immediately
 
 #### SSH Authentication Fails
 
-Sometimes Putty doesn't authenticate using the smart card.  I'm not sure why this is happening but I can generally fix it by closing Kleopatra, killing the gpg-agent process, and restarting Kleopatra.
+Sometimes GPG fails to recognize the smart card.  I'm not sure why this is happening but I can generally fix it by closing Kleopatra, killing the gpg-agent process, and restarting Kleopatra.
+
+The following script has worked for me but screams THIS IS THE WRONG SOLUTION TO THIS PROBLEM!
+
+```
+taskkill /f /im kleopatra.exe
+taskkill /f /im gpg-agent.exe
+"C:\Program Files (x86)\GNU\GnuPG\kleopatra.exe"
+```
 
 ## OSX
 ### Required software
