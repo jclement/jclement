@@ -34,10 +34,22 @@ body {
   content: "NOTE: ";
 }
 
-/*
-.alert-type-note:before {
+.warning {
+  background-color: #FCF8E3;
+  border-color: #FAEBCC;
+  color: #8A6D3B;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 60px;
+}
+
+
+.warning:before {
   float: left;
   margin-top: -5px;
+  margin-left: -40px;
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 2em;
@@ -48,7 +60,6 @@ body {
   transform: translate(0, 0);
   content: "\f040";
 }
-*/
 
 .alert-type-warning:before {
   font-weight: bold;
