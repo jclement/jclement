@@ -110,6 +110,33 @@ body {
   content: "\f057";
 }
 
+.question {
+  background-color: #dedef2;
+  border-color: #c1cceb;
+  color: #4244a9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 60px;
+}
+
+
+.question:before {
+  float: left;
+  margin-top: -5px;
+  margin-left: -45px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 2em;
+  padding-right: 0.5em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  content: "\f059";
+}
+
 .nowrap {
   white-space:nowrap;
 }
