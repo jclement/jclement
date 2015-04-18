@@ -9,7 +9,7 @@ block prepend title
 
 block header
   if page.metadata.draft
-    p.danger This article is a work in progress and is likely full of glaring issues, spelling mistakes, and other shenanigans.  Proceed at your own peril!
+    p.draft-warning This article is a work in progress and is likely full of glaring issues, spelling mistakes, and other shenanigans.  Proceed at your own peril!
   div.page-header
     h1= page.title
       
