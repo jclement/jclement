@@ -74,22 +74,28 @@ html(lang='en')
               | &copy; #{ new Date().getFullYear() } 
               a(href="/contact/") #{ locals.owner } 
               | &middot;&nbsp;
-              a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J") 
+              a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J",data-toggle="tooltip",title="bitcoin") 
                 i.fa.fa-bitcoin
               | &nbsp;&middot;&nbsp;
-              a(href="#").mail-link
+              a(href="#",data-toggle="tooltip",title="e-mail").mail-link
                 i.fa.fa-envelope
               | &nbsp;&middot;&nbsp;
-              a(href="https://twitter.com/charsplat") 
+              a(href="https://keybase.io/jsc",data-toggle="tooltip",title="keybase / gpg") 
+                i.fa.fa-key
+              | &nbsp;&middot;&nbsp;
+              a(href="https://twitter.com/charsplat",data-toggle="tooltip",title="twitter") 
                 i.fa.fa-twitter
               | &nbsp;&middot;&nbsp;
-              a(href="https://github.com/jclement") 
+              a(href="https://github.com/jclement",data-toggle="tooltip",title="github") 
                 i.fa.fa-github
               | &nbsp;&middot;&nbsp;
-              a(href="http://www.linkedin.com/profile/view?id=6394933") 
+              a(href="http://www.linkedin.com/profile/view?id=6394933",data-toggle="tooltip",title="linkedin") 
                 i.fa.fa-linkedin
               | &nbsp;&middot;&nbsp;
-              a(href="/feed.xml") 
+              a(href="https://www.flickr.com/photos/jeffreyclement/",data-toggle="tooltip",title="flickr") 
+                i.fa.fa-flickr
+              | &nbsp;&middot;&nbsp;
+              a(href="/feed.xml",data-toggle="tooltip",title="rss feed") 
                 i.fa.fa-rss
 
     <!-- Javascript Dependencies -->
@@ -101,5 +107,6 @@ html(lang='en')
         for(var i=0; i< a.length; i++) {addr = addr + String.fromCharCode(a[i]);}
         $(".mail-addr").text(addr);
         $(".mail-link").attr("href", "mailto:" + addr);
+        $('[data-toggle="tooltip"]').tooltip();
       });
       
