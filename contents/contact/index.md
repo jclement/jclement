@@ -39,6 +39,11 @@ template: page.jade
 <td><a href="https://twitter.com/charsplat">charsplat</a></td>
 </tr>
 <tr>
+<th>Namecoin:</th>
+<td><a href="http://explorer.namecoin.info/n/id/jclement">id/jclement</a></td>
+</tr>
+<tr>
+<tr>
 <th>Geocaching.com:</th>
 <td><a href="http://www.geocaching.com/profile/?guid=f51076ec-b6e9-4acc-ae68-a8855c024edf">iMinions</a></td>
 </tr>
