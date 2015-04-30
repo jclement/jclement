@@ -30,7 +30,7 @@ Obviously, one needs a smart card.
 
 For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clver, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and Fido U2F. The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).
 
-Another option is to buy a dedicated OpenPGP smart card from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys.  
+Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys.  
 
 Other than a few Yubikey specific setup steps (below) the process for both devices is the same.
 
@@ -513,6 +513,8 @@ The smart card can now be used for encryption, signing and authentication (SSH).
 ### Required software
 
 Download and install [GPG4Win 2.2.4 or higher](http://www.gpg4win.org/download.html).  The default settings are fine.
+
+If you are using the [OpenPGP smart card](http://g10code.com/p-card.html) you'll also need a [driver for Windows](http://www.mysmartlogon.com/openpgp-card-mini-driver/).
 
 ### Configuration
 
