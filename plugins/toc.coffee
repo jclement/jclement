@@ -1,4 +1,13 @@
 "use strict"
+
+# intercept markdown, generate TOC and add it to page prior to Marked running
+# usage:
+#  - only applies to pages with "toc: true" in metadata.
+#  - customize max depth with "tocLevel: 3"
+# known issues:
+#  - doesn't support <h#> tags or underlined headers
+#  - doesn't handle repeated headers
+
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
@@ -47,16 +56,21 @@ module.exports = (env, callback) ->
 
           levels = []
 
+          # find headers (## style only ##)
           for header in markdown.match /^#+.*/mg
             match = header.match /^(#+)\s*(.*?)\s*#*\s*$/
             level = match[1].length
             title = match[2]
             link = TocMarkdownPage.generateId title
             levels.push [level, title, link]
+
+          # find minimum level so we can normalize TOC to start at level-1
           minLevel = 99
           for [level, title, link] in levels
             if level < minLevel
               minLevel = level
+
+          # draw TOC as MD list
           for [level, title, link] in levels
             if level <= maxLevel 
               toc += repeat('  ', level-minLevel) + '- [' + title + '](#' + link + ')\n'
