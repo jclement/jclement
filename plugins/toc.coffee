@@ -30,9 +30,9 @@ module.exports = (env, callback) ->
       return 'yellow'
 
   TocMarkdownPage.generateId = (text) ->
-    text.replace /\s/g, '-'
-        .replace /%([abcdef]|\d){2,2}/ig, ''
-        .replace /[\/?!:\[\]`.,()*"';{}+=<>~\$]/g,''
+    text.replace(/\s/g, '-')
+        .replace(/%([abcdef]|\d){2,2}/ig, '')
+        .replace(/[\/?!:\[\]`.,()*"';{}+=<>~\$]/g,'')
         .toLowerCase()
     
 
