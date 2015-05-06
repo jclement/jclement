@@ -3,8 +3,8 @@ title: Using GPG with Smart Cards
 date: 2015-04-14
 template: article.jade
 draft: true
-#suppress: true
 comments: true
+toc: true
 ---
 
 I use SSH daily (with SSH keys) and would like to use GPG routinely (if only people I conversed with would use it) but key management is always a problem.  I don't like that I'm leaving secret keys on my work computer, work laptop, various home computers, etc.  To mitigate this problem I use a strong password on each of these keys which makes actually using them annoying.

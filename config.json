@@ -8,6 +8,7 @@
   },
   "plugins": [
     "./plugins/articles.js",
+    "./plugins/toc.coffee",
     "wintersmith-contents",
     "wintersmith-robots"
     ],
