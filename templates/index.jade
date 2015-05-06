@@ -27,7 +27,7 @@ block content
       h3 Projects:
       table.table.table-condensed.table-striped
         each project in contents.projects
-          if !project.metadata.suppress
+          if project.metadata && !project.metadata.suppress
             tr
               td(style="width:0px")
                 if project.metadata.url.indexOf("github") != -1

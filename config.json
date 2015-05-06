@@ -3,11 +3,14 @@
     "url": "http://localhost:8080",
     "name": "jclement.ca",
     "owner": "Jeff Clement",
-    "description": "musings and projects from a Canadian geek"
+    "description": "musings and projects from a Canadian geek",
+    "noindex": false
   },
   "plugins": [
-    "./plugins/articles.js"
-  ],
+    "./plugins/articles.js",
+    "wintersmith-contents",
+    "wintersmith-robots"
+    ],
   "require": {
     "moment": "moment",
     "_": "underscore",
