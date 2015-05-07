@@ -6,6 +6,21 @@
   color: #888;
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 0em;
+  right: 0px;
+  text-decoration: none;
+  color: #000000;
+  padding: 1em;
+  display: none;
+}
+
+.back-to-top:hover {	
+  text-decoration: none;
+  color: #663333;
+}	
+
 body {
   padding-top: 70px;
 }
