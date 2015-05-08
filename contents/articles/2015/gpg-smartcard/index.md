@@ -72,7 +72,7 @@ $ apt-get -t wheezy-backports install gnugp2 scdaemon
 
 <div class="note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
 
-Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)):
+Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)): 
 
 ```sh
 $ mkdir ~/.gnupg
@@ -88,6 +88,8 @@ cert-digest-algo SHA512
 default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
 !
 ```
+
+My [gpg.conf](https://github.com/jclement/dotfiles/blob/master/other/gpg.conf) file is on github.
 
 <div class="danger">Unplug your network cable now and verify that machine no longer has network connectivity.</div>
 
