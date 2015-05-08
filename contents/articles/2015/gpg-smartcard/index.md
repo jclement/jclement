@@ -31,7 +31,7 @@ Obviously, one needs a smart card.
 
 For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clver, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and Fido U2F. The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).
 
-Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys.  
+Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires an additional driver on Windows where the NEO doesn't. 
 
 Other than a few Yubikey specific setup steps (below) the process for both devices is the same.
 
@@ -62,6 +62,16 @@ Install additional dependencies on the machine:
 $ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
 ```
 
+<div class="warning">Note: To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</div>
+
+If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with:
+
+```
+$ echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
+$ apt-get update
+$ apt-get -t wheezy-backports install gnugp2 scdaemon
+```
+
 <div class="note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
 
 Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)):
@@ -82,6 +92,8 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 ```
 
 <div class="danger">Unplug your network cable now and verify that machine no longer has network connectivity.</div>
+
+<div class="note">Most of the rest of this guide should be run as root.  The default permissions on the Yubikey device under the Debian LiveCD don't allow non-root users to interact with it.  We could fix it but this is a LiveCD and it won't survive the reboot so life is simpler just doing the key generation and key-to-card operations as root.</div>
 
 ## Generating the GPG keys
 
