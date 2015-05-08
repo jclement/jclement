@@ -21,9 +21,11 @@ Simon Josefsson.  Much like the reason Simon wrote his post, this article was pr
 
 Roughly:
 
-* Master GnuPG is generated and stored on an offline computer
-* Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for dailey use
+* Master GnuPG key is generated and stored on an offline computer
+* Master key is used for key signing and updating expiry dates on my keys (rarely)
+* Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
 * I have a mix of Windows, OSX and Linux machines I want to use with this
+* I want to use the smart card for GnuPG (encryption / signing) and SSH (remote login)
 
 # Required Hardware
 
