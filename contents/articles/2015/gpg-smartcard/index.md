@@ -14,26 +14,24 @@ Enter [smart cards](http://en.wikipedia.org/wiki/Smart_card)...
 
 Smart cards let you store the RSA private key information on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable.  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines. 
 
-Unfortunately, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
+Unfortunately, despite existing for over a decade, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
 <div class="note">This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
 Simon Josefsson.  Much like the reason Simon wrote his post, this article was primarily created to document my setup for my future reference.</div>
 
 Roughly:
 
-* Master GnuPG key is generated and stored on an offline computer
+* 4096-bit Master GnuPG key is generated and stored on an offline computer
 * Master key is used for key signing and updating expiry dates on my keys (rarely)
-* Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
+* 2048-bit Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
 * I have a mix of Windows, OSX and Linux machines I want to use with this
 * I want to use the smart card for GnuPG (encryption / signing) and SSH (remote login)
 
 # Required Hardware
 
-Obviously, one needs a smart card.  
+For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clever, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and [Fido U2F](https://fidoalliance.org/specs/fido-u2f-overview-v1.0-rd-20140209.pdf). The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).  Yubico does have a good article about [2048-bit vs 4096-bit keys](https://www.yubico.com/2015/02/big-debate-2048-4096-yubicos-stand/) that you should read.
 
-For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clver, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and Fido U2F. The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).
-
-Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires an additional driver on Windows where the NEO doesn't. 
+Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires a separate reader and an additional driver on Windows where the NEO doesn't.  It's also more fragile than the almost indestructible Yubikey. 
 
 Other than a few Yubikey specific setup steps (below) the process for both devices is the same.
 
@@ -52,7 +50,7 @@ I did this on Windows because it was convenient but there are packages for OSX a
 # Setup
 ## Setting up the air-gapped machine
 
-I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load them onto my smart card for daily use.  
+I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load the daily-use subkeys onto my smart card for daily use.  
 
 Download Debian Live install image from [here](https://www.debian.org/CD/live/) (I used 7.8.0-amd64-standard) and install on USB thumb-drive using a method appropriate for your OS of choice.
 
@@ -95,7 +93,7 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 
 ## Generating the GPG keys
 
-Here is a sample of the keys that I'm trying to generate.  The master key is reserved for signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
+Here is a sample of the keys that I'm trying to generate.  The master key is reserved for key signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
 
 ```
 pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
@@ -247,7 +245,7 @@ pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: 
 gpg> save
 ```
 
-Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so depending on your hardware...
+Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so depending on your hardware...  
 
 ```
 gpg2 --expert --edit-key 0x2896DB4A0E427716
@@ -773,9 +771,9 @@ $ gpg2 -a --export 0x2896DB4A0E427716 > 0x2896DB4A0E427716.asc
 
 It's good to distribute your GPG public key so that people who want to get in touch with you, securely, have access to your key.
 
-The traditional mechanism for sharing keys is through PGP key servers.  You can upload your key with <kbd>gpg2 --send-key 0x2896DB4A0E427716</kbd>.  Other users can then download your key using your ID (email) or your key ID - those users should then verify the key is yours by either (1) checking that key is signed by someone they trust or (2) verifying the fingerprint on the key that was obtained securely.  There are many public key servers and they generally share keys so no need to push your key to more than one of them.
+The traditional mechanism for sharing keys is through PGP key servers.  You can upload your key with <kbd>gpg2 --send-key 0x2896DB4A0E427716</kbd>.  Other users can then download your key using your ID (email) or your key ID - those users should then verify the key is yours by either (1) checking that key is signed by someone they trust or (2) verifying the fingerprint on the key.  There are many public key servers and they generally share keys so no need to push your key to more than one of them.
 
-[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys without requiring the web-of-trust.
+[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys.  Instead of verifying the key through a web-of-trust or out-of-band fingerprint exchange you verify it by verifying publicly posted and signed statements of identity on various social platforms such as github, twitter, reddit, hacker news, etc.  This gives a good way of getting reasonable assurance that the key you receive belongs to the person that controls those accounts.  Currently keybase.io is in beta and is invite based.  I have spare invites so feel free to get in touch if this interests you.
 
 # Usage
 
