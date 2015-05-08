@@ -62,15 +62,11 @@ Install additional dependencies on the machine:
 $ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
 ```
 
-<div class="warning">Note: To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</div>
-
-If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with:
-
-```
+<div class="warning"><p>To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</p><p> If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with: <pre>
 $ echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
 $ apt-get update
 $ apt-get -t wheezy-backports install gnugp2 scdaemon
-```
+</pre></div>
 
 <div class="note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
 
@@ -504,20 +500,155 @@ Be absolutely sure you have a backup of your GPG keys and revocation certificate
 
 ## Configuring the smart card
 
-Set user and admin PIN + other information
+Use <kbd>gpg2 --card-edit</kbd> to edit the user information and PINs for the smart card.
+
+* **User PIN** - this is the PIN required to use your key to sign/decrypt
+* **Admin PIN** - this PIN is required to make changes to the smart card and is not used day-to-day
+* **URL** - this is the location of your public key file and can be used my GnuPG to download your key in new installations.  I really like <a href="https://keybase.io">keybase.io</a> so I've used that.
+
+<div class="note">My environment uses the graphical PIN entry program so you don't see PIN prompts below but you will be prompted after many of the operations for a PIN.</div>
+
+<div class="note">The default admin PIN is usually '12345678' and the default PIN is usually '123456'.</div>
+
+```
+$ gpg2 --card-edit
+
+Application ID ...: D2760001240102000006030189290000
+Version ..........: 2.0
+Manufacturer .....: Yubico
+Serial number ....: 03018929
+Name of cardholder: 
+Language prefs ...: en
+Sex ..............: 
+URL of public key : 
+Login data .......: NA
+Signature PIN ....: forced
+Key attributes ...: 2048R 2048R 2048R
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 3 3
+Signature counter : 0
+Signature key ....: 
+Encryption key....: 
+Authentication key: 
+General key info..: [none]
+
+gpg/card> admin
+Admin commands are allowed
+
+gpg/card> passwd
+gpg: OpenPGP card no. D2760001240102000006030189290000 detected
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 1
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 3
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? url
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? q
+
+gpg/card> url
+URL to retrieve public key: https://keybase.io/user/key.asc
+
+gpg/card> name
+Cardholder's surname: User
+Cardholder's given name: Test
+
+gpg/card> login
+Login data (account name): test
+
+gpg/card> sex
+Sex ((M)ale, (F)emale or space): M
+
+gpg/card> lang
+Language preferences: en
+
+gpg/card> list
+
+Application ID ...: D2760001240102000006030189290000
+Version ..........: 2.0
+Manufacturer .....: Yubico
+Serial number ....: 03018929
+Name of cardholder: Test User
+Language prefs ...: en
+Sex ..............: male
+URL of public key : https://keybase.io/user/key.asc
+Login data .......: test
+Signature PIN ....: forced
+Key attributes ...: 2048R 2048R 2048R
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 3 3
+Signature counter : 0
+Signature key ....: 
+Encryption key....: 
+Authentication key: 
+General key info..: [none]
+
+gpg/card> quit
+```
 
 ## Loading sub-keys onto the smart card
 
+## Extracting your SSH public key
+
+Use GnuPG to export your public key in ascii armoured format.  This can be safely distributed to others who want to communicate securely with you (after an out-of-band verification of the fingerprint of course).
+
+```
+$ gpg2 -a --export fingerprint > fingerprint.asc
+```
+
 ## Distributing your GPG public key
 
-## Extracting your SSH public key
+### GnuPG Keyservers
+
+### keybase.io
+
 
 # Usage
 
 The smart card can now be used for encryption, signing and authentication (SSH).  The master key, however, is required for making changes to your key and signing other keys so you'll need to keep the LiveCD and USB key backup handy for those operations.
 
 ## Linux
+
+Adjusting UDEV to allow non-root users to interact with the NEO.
+
 ### Required software
+
+```sh
+$ sudo apt-get install gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
+```
+
+<div class="warning"><p>To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</p><p> If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with: <pre>
+$ echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
+$ apt-get update
+$ apt-get -t wheezy-backports install gnugp2 scdaemon
+</pre></div>
+
 ### Outstanding issues
 
 1. gnome-keychain is the bain of my existance...
