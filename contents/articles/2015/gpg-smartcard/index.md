@@ -616,20 +616,166 @@ gpg/card> quit
 
 ## Loading sub-keys onto the smart card
 
+```
+$ gpg2 --edit-key 0x2896DB4A0E427716
+
+Secret key is available.
+
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
+                               trust: ultimate      validity: ultimate
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
+sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E
+sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A
+[ultimate] (1). Test User <test@test.com>
+[ultimate] (2)  Test User <test@megatestcorp.ca>
+[ultimate] (3)  Test User <test@keybase.io>
+
+gpg> toggle
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 1
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb* 2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (1) Signature key
+   (3) Authentication key
+Your selection? 1
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x770A210849C9CBD7, created 2015-04-15
+
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb* 2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 1
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 2
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (2) Encryption key
+Your selection? 2
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x6BF07F7DA7D84FFD, created 2015-04-15
+
+gpg> key 2
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 3
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (3) Authentication key
+Your selection? 3
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x7B13B2E1879F1ED3, created 2015-04-15
+
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> save
+```
+
 ## Extracting your SSH public key
 
-Use GnuPG to export your public key in ascii armoured format.  This can be safely distributed to others who want to communicate securely with you (after an out-of-band verification of the fingerprint of course).
+Use GnuPG to export your public key in ascii-armoured format.  This can be safely distributed to others who want to communicate securely with you (after an out-of-band verification of the fingerprint of course).
 
 ```
-$ gpg2 -a --export fingerprint > fingerprint.asc
+$ gpg2 -a --export 0x2896DB4A0E427716 > 0x2896DB4A0E427716.asc
 ```
 
 ## Distributing your GPG public key
 
-### GnuPG Keyservers
+It's good to distribute your GPG public key so that people who want to get in touch with you, securely, have access to your key.
 
-### keybase.io
+The traditional mechanism for sharing keys is through PGP key servers.  You can upload your key with <kbd>gpg2 --send-key 0x2896DB4A0E427716</kbd>.  Other users can then download your key using your ID (email) or your key ID - those users should then verify the key is yours by either (1) checking that key is signed by someone they trust or (2) verifying the fingerprint on the key that was obtained securely.  There are many public key servers and they generally share keys so no need to push your key to more than one of them.
 
+[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys without requiring the web-of-trust.
 
 # Usage
 
@@ -726,6 +872,15 @@ fi
 The *.gnupg/gpg-agent.conf* should look something like this (the last two lines being very important):
 
 ```
+no-emit-version
+no-comments
+keyid-format 0xlong
+with-fingerprint
+use-agent
+personal-cipher-preferences AES256 AES192 AES CAST5
+personal-digest-preferences SHA512 SHA384 SHA256 SHA224
+cert-digest-algo SHA512
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
 pinentry-program /usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac
 default-cache-ttl 600
 max-cache-ttl 7200
