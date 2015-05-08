@@ -506,6 +506,24 @@ The smart card can now be used for encryption, signing and authentication (SSH).
 
 ## Linux
 ### Required software
+### Murdering gnome-keyring
+
+Debian:
+
+```
+mkdir ~/.config/autostart
+cp /etc/xdg/autostart/gnome-keyring-gpg.desktop ~/.config/autostart/
+echo 'Hidden=true' >> ~/.config/autostart/gnome-keyring-gpg.desktop 
+cp /etc/xdg/autostart/gnome-keyring-ssh.desktop ~/.config/autostart/
+echo 'Hidden=true' >> ~/.config/autostart/gnome-keyring-ssh.desktop 
+```
+
+Ubuntu:
+
+```
+echo manual > ~/.config/upstart/gnome-keyring.override
+```
+
 ### Outstanding issues
 
 1. gnome-keychain is the bain of my existance...
