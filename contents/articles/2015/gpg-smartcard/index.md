@@ -14,24 +14,26 @@ Enter [smart cards](http://en.wikipedia.org/wiki/Smart_card)...
 
 Smart cards let you store the RSA private key information on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable.  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines. 
 
-Unfortunately, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
+Unfortunately, despite existing for over a decade, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
 <div class="note">This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
 Simon Josefsson.  Much like the reason Simon wrote his post, this article was primarily created to document my setup for my future reference.</div>
 
 Roughly:
 
-* Master GnuPG is generated and stored on an offline computer
-* Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for dailey use
+* 4096-bit Master GnuPG key is generated and stored on an offline computer
+* Master key is used for key signing and updating expiry dates on my keys (rarely)
+* 2048-bit Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
 * I have a mix of Windows, OSX and Linux machines I want to use with this
+* I want to use the smart card for GnuPG (encryption / signing) and SSH (remote login)
 
 # Required Hardware
 
-Obviously, one needs a smart card.  
+![OpenPGP Smart Card vs. Yubikey NEO](card-vs-neo.jpg)
 
-For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clver, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and Fido U2F. The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).
+For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clever, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and [Fido U2F](https://fidoalliance.org/specs/fido-u2f-overview-v1.0-rd-20140209.pdf). The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).  Yubico does have a good article about [2048-bit vs 4096-bit keys](https://www.yubico.com/2015/02/big-debate-2048-4096-yubicos-stand/) that you should read.
 
-Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys.  
+Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires a separate reader and an additional driver on Windows where the NEO doesn't.  It's also more fragile than the almost indestructible Yubikey. 
 
 Other than a few Yubikey specific setup steps (below) the process for both devices is the same.
 
@@ -50,7 +52,7 @@ I did this on Windows because it was convenient but there are packages for OSX a
 # Setup
 ## Setting up the air-gapped machine
 
-I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load them onto my smart card for daily use.  
+I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load the daily-use subkeys onto my smart card for daily use.  
 
 Download Debian Live install image from [here](https://www.debian.org/CD/live/) (I used 7.8.0-amd64-standard) and install on USB thumb-drive using a method appropriate for your OS of choice.
 
@@ -61,6 +63,12 @@ Install additional dependencies on the machine:
 ```sh
 $ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
 ```
+
+<div class="warning"><p>To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</p><p> If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with: <pre>
+$ echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
+$ apt-get update
+$ apt-get -t wheezy-backports install gnugp2 scdaemon
+</pre></div>
 
 <div class="note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
 
@@ -83,9 +91,11 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 
 <div class="danger">Unplug your network cable now and verify that machine no longer has network connectivity.</div>
 
+<div class="note">Most of the rest of this guide should be run as root.  The default permissions on the Yubikey device under the Debian LiveCD don't allow non-root users to interact with it.  We could fix it but this is a LiveCD and it won't survive the reboot so life is simpler just doing the key generation and key-to-card operations as root.</div>
+
 ## Generating the GPG keys
 
-Here is a sample of the keys that I'm trying to generate.  The master key is reserved for signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
+Here is a sample of the keys that I'm trying to generate.  The master key is reserved for key signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
 
 ```
 pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
@@ -237,7 +247,7 @@ pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: 
 gpg> save
 ```
 
-Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so depending on your hardware...
+Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so depending on your hardware...  
 
 ```
 gpg2 --expert --edit-key 0x2896DB4A0E427716
@@ -492,20 +502,301 @@ Be absolutely sure you have a backup of your GPG keys and revocation certificate
 
 ## Configuring the smart card
 
-Set user and admin PIN + other information
+Use <kbd>gpg2 --card-edit</kbd> to edit the user information and PINs for the smart card.
+
+* **User PIN** - this is the PIN required to use your key to sign/decrypt
+* **Admin PIN** - this PIN is required to make changes to the smart card and is not used day-to-day
+* **URL** - this is the location of your public key file and can be used my GnuPG to download your key in new installations.  I really like <a href="https://keybase.io">keybase.io</a> so I've used that.
+
+<div class="note">My environment uses the graphical PIN entry program so you don't see PIN prompts below but you will be prompted after many of the operations for a PIN.</div>
+
+<div class="note">The default admin PIN is usually '12345678' and the default PIN is usually '123456'.</div>
+
+```
+$ gpg2 --card-edit
+
+Application ID ...: D2760001240102000006030189290000
+Version ..........: 2.0
+Manufacturer .....: Yubico
+Serial number ....: 03018929
+Name of cardholder: 
+Language prefs ...: en
+Sex ..............: 
+URL of public key : 
+Login data .......: NA
+Signature PIN ....: forced
+Key attributes ...: 2048R 2048R 2048R
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 3 3
+Signature counter : 0
+Signature key ....: 
+Encryption key....: 
+Authentication key: 
+General key info..: [none]
+
+gpg/card> admin
+Admin commands are allowed
+
+gpg/card> passwd
+gpg: OpenPGP card no. D2760001240102000006030189290000 detected
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 1
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? 3
+PIN changed.
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? url
+
+1 - change PIN
+2 - unblock PIN
+3 - change Admin PIN
+4 - set the Reset Code
+Q - quit
+
+Your selection? q
+
+gpg/card> url
+URL to retrieve public key: https://keybase.io/user/key.asc
+
+gpg/card> name
+Cardholder's surname: User
+Cardholder's given name: Test
+
+gpg/card> login
+Login data (account name): test
+
+gpg/card> sex
+Sex ((M)ale, (F)emale or space): M
+
+gpg/card> lang
+Language preferences: en
+
+gpg/card> list
+
+Application ID ...: D2760001240102000006030189290000
+Version ..........: 2.0
+Manufacturer .....: Yubico
+Serial number ....: 03018929
+Name of cardholder: Test User
+Language prefs ...: en
+Sex ..............: male
+URL of public key : https://keybase.io/user/key.asc
+Login data .......: test
+Signature PIN ....: forced
+Key attributes ...: 2048R 2048R 2048R
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 3 3
+Signature counter : 0
+Signature key ....: 
+Encryption key....: 
+Authentication key: 
+General key info..: [none]
+
+gpg/card> quit
+```
 
 ## Loading sub-keys onto the smart card
 
-## Distributing your GPG public key
+```
+$ gpg2 --edit-key 0x2896DB4A0E427716
+
+Secret key is available.
+
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
+                               trust: ultimate      validity: ultimate
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
+sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E
+sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A
+[ultimate] (1). Test User <test@test.com>
+[ultimate] (2)  Test User <test@megatestcorp.ca>
+[ultimate] (3)  Test User <test@keybase.io>
+
+gpg> toggle
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 1
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb* 2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (1) Signature key
+   (3) Authentication key
+Your selection? 1
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x770A210849C9CBD7, created 2015-04-15
+
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb* 2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 1
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 2
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (2) Encryption key
+Your selection? 2
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x6BF07F7DA7D84FFD, created 2015-04-15
+
+gpg> key 2
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> key 3
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> keytocard
+Signature key ....: FE6C F0EA CBCC 7EE7 4093  31FC 770A 2108 49C9 CBD7
+Encryption key....: 61D4 690A B2FF DD1E BA20  7236 3F4C 28B7 720F 4E92
+Authentication key: CB86 2306 2D78 9F11 3F40  BD12 7B13 B2E1 879F 1ED3
+
+Please select where to store the key:
+   (3) Authentication key
+Your selection? 3
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+2048-bit RSA key, ID 0x7B13B2E1879F1ED3, created 2015-04-15
+
+
+sec  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14
+ssb  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+ssb* 2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: never
+                     card-no: 0006 03018929
+(1)  Test User <test@test.com>
+(2)  Test User <test@megatestcorp.ca>
+(3)  Test User <test@keybase.io>
+
+gpg> save
+```
 
 ## Extracting your SSH public key
+
+Use GnuPG to export your public key in ascii-armoured format.  This can be safely distributed to others who want to communicate securely with you (after an out-of-band verification of the fingerprint of course).
+
+```
+$ gpg2 -a --export 0x2896DB4A0E427716 > 0x2896DB4A0E427716.asc
+```
+
+## Distributing your GPG public key
+
+It's good to distribute your GPG public key so that people who want to get in touch with you, securely, have access to your key.
+
+The traditional mechanism for sharing keys is through PGP key servers.  You can upload your key with <kbd>gpg2 --send-key 0x2896DB4A0E427716</kbd>.  Other users can then download your key using your ID (email) or your key ID - those users should then verify the key is yours by either (1) checking that key is signed by someone they trust or (2) verifying the fingerprint on the key.  There are many public key servers and they generally share keys so no need to push your key to more than one of them.
+
+[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys.  Instead of verifying the key through a web-of-trust or out-of-band fingerprint exchange you verify it by verifying publicly posted and signed statements of identity on various social platforms such as github, twitter, reddit, hacker news, etc.  This gives a good way of getting reasonable assurance that the key you receive belongs to the person that controls those accounts.  Currently keybase.io is in beta and is invite based.  I have spare invites so feel free to get in touch if this interests you.
 
 # Usage
 
 The smart card can now be used for encryption, signing and authentication (SSH).  The master key, however, is required for making changes to your key and signing other keys so you'll need to keep the LiveCD and USB key backup handy for those operations.
 
 ## Linux
+
+Adjusting UDEV to allow non-root users to interact with the NEO.
+
 ### Required software
+
+```sh
+$ sudo apt-get install gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
+```
+
+<div class="warning"><p>To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</p><p> If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with: <pre>
+$ echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
+$ apt-get update
+$ apt-get -t wheezy-backports install gnugp2 scdaemon
+</pre></div>
+
 ### Murdering gnome-keyring
 
 Debian:
@@ -523,6 +814,7 @@ Ubuntu:
 ```
 echo manual > ~/.config/upstart/gnome-keyring.override
 ```
+
 
 ### Outstanding issues
 
@@ -599,6 +891,15 @@ fi
 The *.gnupg/gpg-agent.conf* should look something like this (the last two lines being very important):
 
 ```
+no-emit-version
+no-comments
+keyid-format 0xlong
+with-fingerprint
+use-agent
+personal-cipher-preferences AES256 AES192 AES CAST5
+personal-digest-preferences SHA512 SHA384 SHA256 SHA224
+cert-digest-algo SHA512
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
 pinentry-program /usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac
 default-cache-ttl 600
 max-cache-ttl 7200

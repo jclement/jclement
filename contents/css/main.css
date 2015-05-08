@@ -199,7 +199,6 @@ code {
 pre code {
   display: block;
   line-height: 1.1;
-  overflow-x: scroll;
 }
 
 p code {
