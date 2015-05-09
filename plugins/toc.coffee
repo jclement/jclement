@@ -57,12 +57,18 @@ module.exports = (env, callback) ->
           levels = []
 
           # find headers (## style only ##)
-          for header in markdown.match /^#+.*/mg
-            match = header.match /^(#+)\s*(.*?)\s*#*\s*$/
-            level = match[1].length
-            title = match[2]
-            link = TocMarkdownPage.generateId title
-            levels.push [level, title, link]
+          in_code = false
+          for line in markdown.split '\n'
+            # look for code blocks and ignore headings until close of code block
+            if line.match /^```/
+              in_code = !in_code
+            # if not in code block and starts with #, heading
+            if !in_code && line.match /^#/
+              match = line.match /^(#+)\s*(.*?)\s*#*\s*$/
+              level = match[1].length
+              title = match[2]
+              link = TocMarkdownPage.generateId title
+              levels.push [level, title, link]
 
           # find minimum level so we can normalize TOC to start at level-1
           minLevel = 99

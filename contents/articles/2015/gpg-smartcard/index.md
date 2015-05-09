@@ -851,10 +851,11 @@ Until the gnome-keychain problem is resolved, the .bashrc / .zshrc code above me
 ie)
 
 /home/user/bin/gpg-wrapper
-```sh
- #!/bin/sh
- . ~/.gpg-agent-info
- gpg2 $*
+
+```bash
+#!/bin/sh
+. ~/.gpg-agent-info
+gpg2 $*
 ```
 
 ## Windows
