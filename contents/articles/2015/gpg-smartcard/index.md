@@ -852,9 +852,9 @@ ie)
 
 /home/user/bin/gpg-wrapper
 ```sh
-#!/bin/sh
-. ~/.gpg-agent-info
-gpg2 $*
+ #!/bin/sh
+ . ~/.gpg-agent-info
+ gpg2 $*
 ```
 
 ## Windows
