@@ -841,10 +841,21 @@ enable-ssh-support
 write-env-file
 ```
 
-
 ### Outstanding issues
 
-1. gnome-keychain is the bain of my existance...  It keeps taking over the GPG_AGENT_INFO environment variables and preventing apps not launched by my shell from using the smart card.
+#### gnome-keychain
+gnome-keychain is the bain of my existance...  It keeps taking over the GPG_AGENT_INFO environment variables and preventing apps not launched by my shell from using the smart card.
+
+Until the gnome-keychain problem is resolved, the .bashrc / .zshrc code above means the terminal works fine and for apps like Thunderbird I can point them at a gpg-wrapper that loads it the correct environment first.  
+
+ie)
+
+/home/user/bin/gpg-wrapper
+```sh
+#!/bin/sh
+. ~/.gpg-agent-info
+gpg2 $*
+```
 
 ## Windows
 ### Required software
