@@ -2,7 +2,6 @@
 title: Using GPG with Smart Cards
 date: 2015-04-14
 template: article.jade
-draft: true
 comments: true
 toc: true
 tocLevel: 2
@@ -785,8 +784,6 @@ The smart card can now be used for encryption, signing and authentication (SSH).
 
 ## Linux
 
-Adjusting UDEV to allow non-root users to interact with the NEO.
-
 ### Required software
 
 ```sh
@@ -799,28 +796,55 @@ $ apt-get update
 $ apt-get -t wheezy-backports install gnugp2 scdaemon
 </pre></div>
 
-### Murdering gnome-keyring
+### Configuration
 
-Debian:
+Make sure to load your public key into GPG and then link your keys to the smartcard.
 
-```
-mkdir ~/.config/autostart
-cp /etc/xdg/autostart/gnome-keyring-gpg.desktop ~/.config/autostart/
-echo 'Hidden=true' >> ~/.config/autostart/gnome-keyring-gpg.desktop 
-cp /etc/xdg/autostart/gnome-keyring-ssh.desktop ~/.config/autostart/
-echo 'Hidden=true' >> ~/.config/autostart/gnome-keyring-ssh.desktop 
+```sh
+$ gpg2 --import << public.key
+$ gpg2 --card-status
 ```
 
-Ubuntu:
+or you can pull your public key from the URL on your smart card.
+
+```sh
+$ gpg2 --card-edit
+...
+gpg/card> fetch
+...
+gpg: Total number processed: 1
+gpg:               imported: 1 (RSA: 1)
+$ gpg2 --card-status
+...
+```
+
+Add the following to your *.bashrc* or *.zshrc* to pull in the gpg-agent environment variables when you open new terminals.  This is required for SSH from the CLI to work properly.
+
+<div class="note">The path to the .gpg-agent-info may vary.  On my Ubuntu system it's ~/.gnupg/gpg-agent-info-$(HOSTNAME).  I modified /etc/X11/Xsession.d/90gpg-agent and changed the PID_FILE path to be consistent between my machines in ~/.gpg-agent-info.</div>
+
+
+```bash
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+     . "${HOME}/.gpg-agent-info"
+       export GPG_AGENT_INFO
+       export SSH_AUTH_SOCK
+       export SSH_AGENT_PID
+fi
+```
+
+The *.gnupg/gpg-agent.conf* should look something like this (the last two lines being very important):
 
 ```
-echo manual > ~/.config/upstart/gnome-keyring.override
+default-cache-ttl 600
+max-cache-ttl 7200
+enable-ssh-support
+write-env-file
 ```
 
 
 ### Outstanding issues
 
-1. gnome-keychain is the bain of my existance...
+1. gnome-keychain is the bain of my existance...  It keeps taking over the GPG_AGENT_INFO environment variables and preventing apps not launched by my shell from using the smart card.
 
 ## Windows
 ### Required software
@@ -893,15 +917,6 @@ fi
 The *.gnupg/gpg-agent.conf* should look something like this (the last two lines being very important):
 
 ```
-no-emit-version
-no-comments
-keyid-format 0xlong
-with-fingerprint
-use-agent
-personal-cipher-preferences AES256 AES192 AES CAST5
-personal-digest-preferences SHA512 SHA384 SHA256 SHA224
-cert-digest-algo SHA512
-default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
 pinentry-program /usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac
 default-cache-ttl 600
 max-cache-ttl 7200
