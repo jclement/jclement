@@ -790,7 +790,7 @@ gpg> save
 Use GnuPG to export your public key in ascii-armoured format.  This can be safely distributed to others who want to communicate securely with you (after an out-of-band verification of the fingerprint of course).
 
 ```
-$ gpg2 -a --export 0x2896DB4A0E427716 > 0x2896DB4A0E427716.asc
+$ gpg2 -a --export 0x2896DB4A0E427716 > my-public-key.asc
 ```
 
 ## Distributing your GPG public key
@@ -821,7 +821,7 @@ $ apt-get -t wheezy-backports install gnugp2 scdaemon
 
 ### Configuration
 
-Make sure to load your public key into GPG and then link your keys to the smartcard.
+Make sure to load your public key into GPG and then link your keys to the smart card.
 
 ```sh
 $ gpg2 --import << public.key
@@ -841,7 +841,7 @@ $ gpg2 --card-status
 ...
 ```
 
-Add the following to your *.bashrc* or *.zshrc* to pull in the gpg-agent environment variables when you open new terminals.  This is required for SSH from the CLI to work properly.
+Add the following to your *.bashrc* or *.zshrc* to pull in the gpg-agent environment variables when you open new terminals.  This is required for SSH from the CLI to work properly (due to gnome-keyring issues).
 
 <div class="note">The path to the .gpg-agent-info may vary.  On my Ubuntu system it's ~/.gnupg/gpg-agent-info-$(HOSTNAME).  I modified /etc/X11/Xsession.d/90gpg-agent and changed the PID_FILE path to be consistent between my machines in ~/.gpg-agent-info.</div>
 
@@ -927,7 +927,7 @@ Download and install [GPGTools](https://gpgtools.org/) (I installed GPG Suite Be
 
 ### Configuration
 
-Make sure to load your public key into GPG and then link your keys to the smartcard.
+Make sure to load your public key into GPG and then link your keys to the smart card.
 
 ```sh
 $ gpg --import << public.key
