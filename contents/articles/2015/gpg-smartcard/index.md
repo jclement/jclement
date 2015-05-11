@@ -7,11 +7,11 @@ toc: true
 tocLevel: 2
 ---
 
-I use SSH daily (with SSH keys) and would like to use GPG routinely (if only people I conversed with would use it) but key management is always a problem.  I don't like that I'm leaving secret keys on my work computer, work laptop, various home computers, etc.  To mitigate this problem I use a strong password on each of these keys which makes actually using them annoying.
+I use SSH daily (with SSH keys) and would like to use GPG routinely (if only people I conversed with would use it) but key management is always a problem.  I don't like leaving secret keys on my work computer, work laptop, various home computers, etc.  To mitigate this problem I used a strong password on each of these keys which makes actually using them annoying.
 
 Enter [smart cards](http://en.wikipedia.org/wiki/Smart_card)...  
 
-Smart cards let you store the RSA private key information on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable.  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines. 
+Smart cards let you store the private key on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a short PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable or the key is destroyed (I'm not sure which).  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines. 
 
 Unfortunately, despite existing for over a decade, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
@@ -23,14 +23,14 @@ Roughly:
 * 4096-bit Master GnuPG key is generated and stored on an offline computer
 * Master key is used for key signing and updating expiry dates on my keys (rarely)
 * 2048-bit Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
-* I have a mix of Windows, OSX and Linux machines I want to use with this
+* I want to support Windows, OSX and Linux 
 * I want to use the smart card for GnuPG (encryption / signing) and SSH (remote login)
 
 # Required Hardware
 
 ![OpenPGP Smart Card vs. Yubikey NEO](card-vs-neo.jpg)
 
-For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clever, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and [Fido U2F](https://fidoalliance.org/specs/fido-u2f-overview-v1.0-rd-20140209.pdf). The downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).  Yubico does have a good article about [2048-bit vs 4096-bit keys](https://www.yubico.com/2015/02/big-debate-2048-4096-yubicos-stand/) that you should read.
+For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clever, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and [Fido U2F](https://fidoalliance.org/specs/fido-u2f-overview-v1.0-rd-20140209.pdf). The Yubikey is a authentication swiss-army knife.  One downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).  Yubico does have a good article about [2048-bit vs 4096-bit keys](https://www.yubico.com/2015/02/big-debate-2048-4096-yubicos-stand/) that you should read.
 
 Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires a separate reader and an additional driver on Windows where the NEO doesn't.  It's also more fragile than the almost indestructible Yubikey. 
 
@@ -46,12 +46,14 @@ Use the [Yubikey Neo Manager](https://developers.yubico.com/yubikey-neo-manager/
 
 I did this on Windows because it was convenient but there are packages for OSX and Linux too.  There is also the *ykpersonalize* CLI tool that can do this.
 
+<div class="danger">Use the Yubikey Neo Manager to verify that you have the OpenPGP applet &gt;= 1.0.10 due to a [bug in previous versions of the app on the Yubikey Neo](https://developers.yubico.com/ykneo-openpgp/SecurityAdvisory%202015-04-14.html) that allows a bypass of the PIN when performing cryptographic operations.</div>
+
 ![Yubikey Neo Manager](yubikey-mode.png)
 
 # Setup
 ## Setting up the air-gapped machine
 
-I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load the daily-use subkeys onto my smart card for daily use.  
+I chose to generate my GPG keys on an air-gapped (non-network connected) Debian LiveCD to prevent any accidental leakage of my keys.  Once the keys are generated I copy them onto backup media (multiple backup media) and then load the daily-use subkeys onto my smart card.  The master key is kept entirely off-line.
 
 Download Debian Live install image from [here](https://www.debian.org/CD/live/) (I used 7.8.0-amd64-standard) and install on USB thumb-drive using a method appropriate for your OS of choice.
 
@@ -96,7 +98,7 @@ My [gpg.conf](https://github.com/jclement/dotfiles/blob/master/other/gpg.conf) f
 
 ## Generating the GPG keys
 
-Here is a sample of the keys that I'm trying to generate.  The master key is reserved for key signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
+Here is a sample set of keys that I'm generating.  The master key is reserved for key signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
 
 ```
 pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
@@ -109,13 +111,10 @@ sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: 
 [ultimate] (3)  Test User <test@keybase.io>
 ```
 
-Start by creating the master key.  I chose a 4096-bit key length for this and set an expiry of one year.  I could be convinced I should put that further in the future but then I'll forget about updating it.  An expiry date is important so that if I lose my key it doesn't hang around on the key servers indefinitely.
+Start by creating the master key.  I chose a 4096-bit key length for this and set an expiry of one year.  An expiry date is important so that if I lose my key it doesn't hang around on the key servers indefinitely.
 
 ```
 $ gpg2 --gen-key
-gpg (GnuPG) 2.0.19; Copyright (C) 2012 Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
 
 gpg: keyring `/home/user/.gnupg/secring.gpg' created
 Please select what kind of key you want:
@@ -171,13 +170,13 @@ Note that this key cannot be used for encryption.  You may want to use
 the command "--edit-key" to generate a subkey for this purpose.
 ```
 
-Edit the key and add additional UIDs (e-mail addresses) and a photo (optional).
+Edit the key and add additional UIDs (e-mail addresses) and a photo (optional).  I add my keybase.io ID at this point.
+
+I opted for a 200x200 grayscale JPEG for my photo and ran it jpegoptim with <kbd>jpegoptim -strip-all photo.jpg</kbd> to further shrunk it.
+
 
 ```
-gpg2 --edit-key 0x2896DB4A0E427716
-gpg (GnuPG) 2.0.19; Copyright (C) 2012 Free Software Foundation, Inc.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
+$ gpg2 --edit-key 0x2896DB4A0E427716
 
 Secret key is available.
 
@@ -245,10 +244,34 @@ pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: 
 [ unknown] (2)  Test User <test@megatestcorp.ca>
 [ unknown] (3)  Test User <test@keybase.io>
 
+gpg> addphoto
+
+Pick an image to use for your photo ID.  The image must be a JPEG file.
+Remember that the image is stored within your public key.  If you use a
+very large picture, your key will become very large as well!
+Keeping the image close to 240x288 is a good size to use.
+
+Enter JPEG filename for photo ID: photo.jpg
+Is this photo correct (y/N/q)? y
+
+You need a passphrase to unlock the secret key for
+user: "Test User <test@test.com>"
+4096-bit RSA key, ID 0x2896DB4A0E427716, created 2015-04-15
+
+
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+                               trust: ultimate      validity: ultimate
+[ultimate] (1)* Test User <test@test.com>
+[ unknown] (2)  Test User <test@megatestcorp.ca>
+[ unknown] (3)  Test User <test@keybase.io>
+[ unknown] (4)  [jpeg image of size 7802]
+
+gpg> save
+
 gpg> save
 ```
 
-Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so depending on your hardware...  
+Now generate the sub-keys that will be pushed onto the smart card.  I've chosen 2048-bit keys because that's the largest keysize supported by the Yubikey NEO.  The OpenPGP Smart Card V2.1 does support 4096-bit RSA keys so that may be an option if you are using one of those.
 
 ```
 gpg2 --expert --edit-key 0x2896DB4A0E427716
@@ -844,9 +867,9 @@ write-env-file
 ### Outstanding issues
 
 #### gnome-keychain
-gnome-keychain is the bain of my existance...  It keeps taking over the GPG_AGENT_INFO environment variables and preventing apps not launched by my shell from using the smart card.
+gnome-keychain is the bain of my existance...  It takes over the role of ssh-agent / gpg-agent with a broken implementation that doesn't support smart cards.  In addition, because it's now started through upstart, it's really [hard](https://bugs.launchpad.net/ubuntu/+source/gnome-keyring/+bug/884856) to [turn off](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=760102).
 
-Until the gnome-keychain problem is resolved, the .bashrc / .zshrc code above means the terminal works fine and for apps like Thunderbird I can point them at a gpg-wrapper that loads it the correct environment first.  
+Until the gnome-keychain problem is resolved, the .bashrc / .zshrc code above means GPG and SSH in the terminal works fine and for apps like Thunderbird I can point them at a gpg-wrapper that loads it the correct environment first.  Another option is to completely disable gnome-keychain but that has other consequences with saved credentials in other apps. 
 
 ie)
 
