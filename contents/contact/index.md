@@ -13,6 +13,10 @@ template: page.jade
 <td><a href="#" class="mail-link"><span class="mail-addr">jsc at nddn dot net</span></a></td>
 </tr>
 <tr>
+<th>Telegram:</th>
+<td><a href="https://telegram.me/charsplat">charsplat</a></td>
+</tr>
+<tr>
 <th><a href="http://www.gnupg.org/">GnuPG</a>:</th>
 <td><a href="https://keybase.io/jsc">0x4378F71AB4EA336E</a><br />
 6B42 6A57 875A E6A7 C910 EF91 4378 F71A B4EA 336E<br />
@@ -22,6 +26,14 @@ template: page.jade
 <th><a href="https://minilock.io/">miniLock</a>:</th>
 <td>7hEoUKC4iC8Ek6N3UGWWy9qy9Q3sYS6VSmQmM3tcx2CmF</td>
 </tr>
+<tr>
+<th>XMPP:</th>
+<td>charsplat@dukgo.com<br/>
+<u>OTR Fingerprints:</u></br>
+<tt>B61B4321 D3B2A7A1 B690BBAD 0A33DF86 A02313DF</tt>
+</td>
+</tr>
+<tr>
 <tr>
 <th><a href="http://bitmessage.org">Bitmessage</a>:</th>
 <td>BM-Gu9H5ftZPCXSykMg1LHdhkwbqULo6FLr</td>
