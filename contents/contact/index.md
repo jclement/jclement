@@ -30,7 +30,8 @@ template: page.jade
 <th>XMPP:</th>
 <td>charsplat@dukgo.com<br/>
 <u>OTR Fingerprints:</u></br>
-<tt>B61B4321 D3B2A7A1 B690BBAD 0A33DF86 A02313DF</tt>
+<tt>B61B4321 D3B2A7A1 B690BBAD 0A33DF86 A02313DF</tt><br />
+<tt>28B8D190 43E03A80 B335EE44 95E2EBC6 E45A1F88</tt>
 </td>
 </tr>
 <tr>
