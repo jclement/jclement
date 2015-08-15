@@ -90,6 +90,7 @@ default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB
 !
 ```
 
+
 My [gpg.conf](https://github.com/jclement/dotfiles/blob/master/other/gpg.conf) file is on github.
 
 <div class="danger">Unplug your network cable now and verify that machine no longer has network connectivity.</div>
@@ -535,6 +536,27 @@ Use <kbd>gpg2 --card-edit</kbd> to edit the user information and PINs for the sm
 <div class="note">My environment uses the graphical PIN entry program so you don't see PIN prompts below but you will be prompted after many of the operations for a PIN.</div>
 
 <div class="note">The default admin PIN is usually '12345678' and the default PIN is usually '123456'.</div>
+
+<div class="warning">
+If the machine you are using has a built-in Smartcard reader you may receive "<b>Card not present</b>" errors.  If this happens you may need to change the default reader for scdaemon to your Yubikey.  Find a list of ports with:
+
+<pre>
+$ echo scd getinfo reader_list | gpg-connect-agent --decode | awk ’/^D/ {print $2}’
+</pre>
+
+The above command outputs something like:
+
+<pre>
+1050:0116:X:0
+</pre>
+
+Add the following to ~/.gnupg/scdaemon.conf (based on the output of the previous command)
+<pre>
+reader-port 1050:0116:X:0
+</pre>
+
+Alternatively, if you aren't using the built-in Smartcard reader, you can also just deactivate it in the OS.
+</div>
 
 ```
 $ gpg2 --card-edit
