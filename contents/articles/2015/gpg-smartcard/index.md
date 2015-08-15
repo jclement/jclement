@@ -62,7 +62,7 @@ Boot the Live CD and attach it to the network.
 Install additional dependencies on the machine:
 
 ```sh
-$ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8
+$ sudo apt-get install haveged gnupg2 gnupg-agent libpth20 pinentry-curses libccid pcscd scdaemon libksba8 paperkey opensc
 ```
 
 <div class="warning"><p>To work with the Yubikey you must have gnupg2 &gt;= 2.0.22 and scdaemon &gt;= 2.0.22</p><p> If you are using Debian Wheezy you can install updated version of gnupg2 and scdaemon from backports with: <pre>
@@ -72,6 +72,8 @@ $ apt-get -t wheezy-backports install gnugp2 scdaemon
 </pre></div>
 
 <div class="note">haveged is an entropy harvesting daemon that is installed to help improve the entropy in the entropy pool and speed up key generation.</div>
+
+<div class="note">paperkey is a package for exporting private key material to a text file for paper backup.</div>
 
 Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)): 
 
