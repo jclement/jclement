@@ -1,9 +1,9 @@
 {
   "locals": {
-    "url": "http://localhost:8080",
+    "url": "https://jclement.ca",
     "name": "jclement.ca",
     "owner": "Jeff Clement",
-    "description": "musings and projects from a Canadian geek",
+    "description": "",
     "noindex": false
   },
   "plugins": [
