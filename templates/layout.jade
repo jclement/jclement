@@ -15,6 +15,7 @@ html(lang='en')
       link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
       link(rel='stylesheet', href='/css/main.css')
   body(class=bodyclass)
+    <!--sphider_noindex-->
 
     <!-- Page Header -->
     div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
@@ -31,15 +32,16 @@ html(lang='en')
             li
               a(href="/") Home
             li
-              a(href="https://www.flickr.com/photos/jeffreyclement/") 
+              a(href="https://www.flickr.com/photos/jeffreyclement/")
                 | Photos
             li
               a(href="/contact/") Contact
-          form.navbar-form.navbar-right(action="https://duckduckgo.com/", method="get", role="search")
-            input(type="hidden", name="sites", value="jclement.ca")
+          form.navbar-form.navbar-right(action="/sphider/search.php", method="get", role="search")
+            input(type="hidden", name="search", value="1")
             div.form-group
-              input(type="text", name="q", class="form-control", placeholder="Search DuckDuckGo")
+              input(type="text", name="query", class="form-control", placeholder="Search")
 
+    <!--/sphider_noindex-->
     div.container
       div.header
         block header
@@ -61,9 +63,10 @@ html(lang='en')
             })();
           noscript.
             Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      <!--sphider_noindex-->
 
     div.container
-      
+
     <a href="#" class="back-to-top"><i class="fa fa-2x fa-chevron-circle-up"></i></a>
 
     <!-- Page Footer -->
@@ -71,32 +74,32 @@ html(lang='en')
       div.footer
         block footer
           section.copy
-            p 
-              | &copy; #{ new Date().getFullYear() } 
-              a(href="/contact/") #{ locals.owner } 
-              | &middot;&nbsp;
-              a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J",data-toggle="tooltip",title="bitcoin") 
+            p
+              | &copy; #{ new Date().getFullYear() } &nbsp;
+              a(href="/contact/") #{ locals.owner }
+              | &nbsp;&middot;&nbsp;
+              a(href="bitcoin:19zFMzDSmhAbSPDbLKgok8krvkL52G3X3J",data-toggle="tooltip",title="bitcoin")
                 i.fa.fa-bitcoin
               | &nbsp;&middot;&nbsp;
               a(href="#",data-toggle="tooltip",title="e-mail").mail-link
                 i.fa.fa-envelope
               | &nbsp;&middot;&nbsp;
-              a(href="https://keybase.io/jsc",data-toggle="tooltip",title="keybase / gpg") 
+              a(href="https://keybase.io/jsc",data-toggle="tooltip",title="keybase / gpg")
                 i.fa.fa-key
               | &nbsp;&middot;&nbsp;
-              a(href="https://twitter.com/charsplat",data-toggle="tooltip",title="twitter") 
+              a(href="https://twitter.com/charsplat",data-toggle="tooltip",title="twitter")
                 i.fa.fa-twitter
               | &nbsp;&middot;&nbsp;
-              a(href="https://github.com/jclement",data-toggle="tooltip",title="github") 
+              a(href="https://github.com/jclement",data-toggle="tooltip",title="github")
                 i.fa.fa-github
               | &nbsp;&middot;&nbsp;
-              a(href="http://www.linkedin.com/profile/view?id=6394933",data-toggle="tooltip",title="linkedin") 
+              a(href="http://www.linkedin.com/profile/view?id=6394933",data-toggle="tooltip",title="linkedin")
                 i.fa.fa-linkedin
               | &nbsp;&middot;&nbsp;
-              a(href="https://www.flickr.com/photos/jeffreyclement/",data-toggle="tooltip",title="flickr") 
+              a(href="https://www.flickr.com/photos/jeffreyclement/",data-toggle="tooltip",title="flickr")
                 i.fa.fa-flickr
               | &nbsp;&middot;&nbsp;
-              a(href="/feed.xml",data-toggle="tooltip",title="rss feed") 
+              a(href="/feed.xml",data-toggle="tooltip",title="rss feed")
                 i.fa.fa-rss
 
     <!-- Javascript Dependencies -->
@@ -120,11 +123,12 @@ html(lang='en')
             jQuery('.back-to-top').fadeOut(duration);
           }
         });
-        
+
         jQuery('.back-to-top').click(function(event) {
           event.preventDefault();
           jQuery('html, body').animate({scrollTop: 0}, duration);
           return false;
         });
       });
-      
+  <!--/sphider_noindex-->
+
