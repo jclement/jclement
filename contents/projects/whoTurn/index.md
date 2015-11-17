@@ -40,5 +40,6 @@ If you have questions, comments, suggestions, etc. please get in touch via. Twit
 
 WhoTurn makes use of the following 3rd party libraries:
 
+* [PKHUD](https://github.com/pkluz/PKHUD) - pop-up HUD display
 * [TDBadgedCell](http://www.tmdvs.me/TDBadgedCell/) - for nifty badges in the table cells
 * [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell) - for the swipe menu on the table cells
