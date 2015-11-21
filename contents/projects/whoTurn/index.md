@@ -5,7 +5,7 @@ template: page.jade
 
 <img src="main.png" style="border: 1px solid black" class="pull-right img-responsive" width="200"  />
 
-WhoTurn is a tool for those of us who have outsourced their longterm memory to their iPhone.  It tracks who turn it is.
+WhoTurn is a tool for those of us who have outsourced their longterm memory to their iPhone.  It tracks whose turn it is.
 
 * Add things to track (ie. "Pay for Lunch with Joe")
 * Track who did it last: "I did" or "They did"
