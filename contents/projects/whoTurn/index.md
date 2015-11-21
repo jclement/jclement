@@ -5,14 +5,10 @@ template: page.jade
 
 <img src="main.png" style="border: 1px solid black" class="pull-right img-responsive" width="200"  />
 
-<center>
-<p style="font-size: 24pt; font-family: Brush Script MT">“Keep track of the deadbeats who owe you lunch.”</p>
-</center>
+WhoTurn is a tool for those of us who have outsourced their longterm memory to their iPhone.  It tracks who turn it is.
 
-WhoTurn is a tool for those of us who have outsourced their longterm memory to their iPhone.  It tracks who paid last.
-
-* Add things to track (ie. "Lunch with Joe")
-* Track who paid last
+* Add things to track (ie. "Pay for Lunch with Joe")
+* Track who did it last: "I did" or "They did"
 * Delight in the fact that you now have one less thing to remember
 
 That's it.
@@ -20,17 +16,16 @@ That's it.
 ### Features
 
 * Track an **unlimited** number of turn based things (ie. Lunch with Jimmy)
-* Easily see the last time you did that thing and who paid
+* Easily see the last time you did that thing and who did it
 * Keep and view history
 * Snappy sound effects to thrill you
 * Settings page to turn off the sound effects once they cease to thrill you
 * Spotlight integration
-* Find out if your friends is a deadbeat
 
 ### Planned Features
 
 * iCloud sync
-* Per-person frequency with reminders if you're overdue for lunch
+* Reminders
 
 ### Support
 
@@ -43,3 +38,4 @@ WhoTurn makes use of the following 3rd party libraries:
 * [PKHUD](https://github.com/pkluz/PKHUD) - pop-up HUD display
 * [TDBadgedCell](http://www.tmdvs.me/TDBadgedCell/) - for nifty badges in the table cells
 * [MGSwipeTableCell](https://github.com/MortimerGoro/MGSwipeTableCell) - for the swipe menu on the table cells
+* [Onboarding](https://github.com/mamaral/Onboard) - tool for the welcome wizard
