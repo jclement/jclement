@@ -9,13 +9,13 @@ tocLevel: 2
 
 I use SSH daily (with SSH keys) and would like to use GPG routinely (if only people I conversed with would use it) but key management is always a problem.  I don't like leaving secret keys on my work computer, work laptop, various home computers, etc.  To mitigate this problem I used a strong password on each of these keys which makes actually using them annoying.
 
-Enter [smart cards](http://en.wikipedia.org/wiki/Smart_card)...  
+Enter [smart cards](http://en.wikipedia.org/wiki/Smart_card)...
 
-Smart cards let you store the private key on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a short PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable or the key is destroyed (I'm not sure which).  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines. 
+Smart cards let you store the private key on a tamper resistant piece of hardware instead of scattered across various computers (where it can be accessed by other users of the machine, malicious software, etc).  Software can ask the smart card to perform cryptographic operations on its behalf without disclosing the key to the computer (in fact, there is no reasonable way to extract the private key from a smart card).  To prevent unauthorized use the smart code requires the user provide a short PIN.  If the PIN is entered incorrectly three times the card is blocked and must be reset using the administrative PIN.  If the administrative PIN is entered incorrectly the card is rendered inoperable or the key is destroyed (I'm not sure which).  The smart cards significantly increase the security of my keys and don't require me to use long passwords to secure my GPG/SSH keys on my individual machines.
 
 Unfortunately, despite existing for over a decade, it's been difficult to find comprehensive information about setting up and using smart cards, for use with GPG and SSH, under Linux, Windows and OSX.
 
-<div class="note">This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by 
+<div class="note">This article is heavily based on "[Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/)" by
 Simon Josefsson.  Much like the reason Simon wrote his post, this article was primarily created to document my setup for my future reference.</div>
 
 Roughly:
@@ -23,7 +23,7 @@ Roughly:
 * 4096-bit Master GnuPG key is generated and stored on an offline computer
 * Master key is used for key signing and updating expiry dates on my keys (rarely)
 * 2048-bit Sub-keys for encryption, signing and authentication are created and stored on Yubikey NEO for daily use
-* I want to support Windows, OSX and Linux 
+* I want to support Windows, OSX and Linux
 * I want to use the smart card for GnuPG (encryption / signing) and SSH (remote login)
 
 # Required Hardware
@@ -32,13 +32,13 @@ Roughly:
 
 For day-to-day use I chose the [Yubikey Neo](https://www.yubico.com/products/yubikey-hardware/yubikey-neo/).  I've LOVED the Yubikey product line for years because they are clever, small, versatile, and indestructible.  I bought mine from [Amazon for $60](http://www.amazon.ca/dp/B00LX8KZZ8).  They support various OTP schemes, OpenPGP smart card, and [Fido U2F](https://fidoalliance.org/specs/fido-u2f-overview-v1.0-rd-20140209.pdf). The Yubikey is a authentication swiss-army knife.  One downside is that there is no on-device PIN entry mechanism so you rely on a software PIN which is susceptible to key logging.  Another potential downside is that the NEO only supports 2048-bit RSA keys although those are [still acceptably strong](https://www.digicert.com/TimeTravel/math.htm).  Yubico does have a good article about [2048-bit vs 4096-bit keys](https://www.yubico.com/2015/02/big-debate-2048-4096-yubicos-stand/) that you should read.
 
-Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires a separate reader and an additional driver on Windows where the NEO doesn't.  It's also more fragile than the almost indestructible Yubikey. 
+Another option is to buy a dedicated [OpenPGP smart card](http://g10code.com/p-card.html) from [Kernel Concepts](http://shop.kernelconcepts.de/).  The advantage here is that you have the option of using a smart card reader with a hardware keypad which mitigates much of the PIN key logging issue the NEO is susceptible to.  The OpenPGP Smart Card V2.1 also supports 4096-bit RSA keys. Unfortunately this card also requires a separate reader and an additional driver on Windows where the NEO doesn't.  It's also more fragile than the almost indestructible Yubikey.
 
 Other than a few Yubikey specific setup steps (below) the process for both devices is the same.
 
 ## Enabling OpenPGP on Yubikey
 
-If you are using a Yubikey Neo for your smart card you'll need to enable CCID mode and, while you are at it, enable Fido U2F mode.   
+If you are using a Yubikey Neo for your smart card you'll need to enable CCID mode and, while you are at it, enable Fido U2F mode.
 
 For simultaneous OTP, CCID and U2F you need firmware 3.3.0 or higher.
 
@@ -75,7 +75,7 @@ $ apt-get -t wheezy-backports install gnugp2 scdaemon
 
 <div class="note">paperkey is a package for exporting private key material to a text file for paper backup.</div>
 
-Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)): 
+Configure GnuPG with safer defaults and stronger default ciphers (from [riseup.net](https://help.riseup.net/en/security/message-security/openpgp/best-practices)):
 
 ```sh
 $ mkdir ~/.gnupg
@@ -104,11 +104,11 @@ My [gpg.conf](https://github.com/jclement/dotfiles/blob/master/other/gpg.conf) f
 Here is a sample set of keys that I'm generating.  The master key is reserved for key signing and certifying the sub-keys.  There are distinct sub-keys for signing, encryption and authentication (SSH).
 
 ```
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
-sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S   
-sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E   
-sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A   
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
+sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E
+sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A
 [ultimate] (1). Test User <test@test.com>
 [ultimate] (2)  Test User <test@megatestcorp.ca>
 [ultimate] (3)  Test User <test@keybase.io>
@@ -145,7 +145,7 @@ from the Real Name, Comment and Email Address in this form:
 
 Real name: Test User
 Email address: test@test.com
-Comment: 
+Comment:
 You selected this USER-ID:
     "Test User <test@test.com>"
 
@@ -183,14 +183,14 @@ $ gpg2 --edit-key 0x2896DB4A0E427716
 
 Secret key is available.
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1). Test User <test@test.com>
 
 gpg> adduid
 Real name: Test User
 Email address: test@megatestcorp.ca
-Comment: 
+Comment:
 You selected this USER-ID:
     "Test User <test@megatestcorp.ca>"
 
@@ -201,7 +201,7 @@ user: "Test User <test@test.com>"
 4096-bit RSA key, ID 0x2896DB4A0E427716, created 2015-04-15
 
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1)  Test User <test@test.com>
 [ unknown] (2). Test User <test@megatestcorp.ca>
@@ -209,7 +209,7 @@ pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: 
 gpg> adduid
 Real name: Test User
 Email address: test@keybase.io
-Comment: 
+Comment:
 You selected this USER-ID:
     "Test User <test@keybase.io>"
 
@@ -220,7 +220,7 @@ user: "Test User <test@test.com>"
 4096-bit RSA key, ID 0x2896DB4A0E427716, created 2015-04-15
 
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1)  Test User <test@test.com>
 [ unknown] (2)  Test User <test@megatestcorp.ca>
@@ -228,7 +228,7 @@ pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: 
 
 gpg> uid 1
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1)* Test User <test@test.com>
 [ unknown] (2)  Test User <test@megatestcorp.ca>
@@ -241,7 +241,7 @@ user: "Test User <test@test.com>"
 4096-bit RSA key, ID 0x2896DB4A0E427716, created 2015-04-15
 
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1)* Test User <test@test.com>
 [ unknown] (2)  Test User <test@megatestcorp.ca>
@@ -262,7 +262,7 @@ user: "Test User <test@test.com>"
 4096-bit RSA key, ID 0x2896DB4A0E427716, created 2015-04-15
 
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1)* Test User <test@test.com>
 [ unknown] (2)  Test User <test@megatestcorp.ca>
@@ -284,7 +284,7 @@ There is NO WARRANTY, to the extent permitted by law.
 
 Secret key is available.
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
 [ultimate] (1). Test User <test@test.com>
 [ultimate] (2)  Test User <test@megatestcorp.ca>
@@ -306,7 +306,7 @@ Please select what kind of key you want:
    (8) RSA (set your own capabilities)
 Your selection? 4
 RSA keys may be between 1024 and 4096 bits long.
-What keysize do you want? (2048) 
+What keysize do you want? (2048)
 Requested keysize is 2048 bits
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -323,9 +323,9 @@ some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
-sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S   
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
 [ultimate] (1). Test User <test@test.com>
 [ultimate] (2)  Test User <test@megatestcorp.ca>
 [ultimate] (3)  Test User <test@keybase.io>
@@ -346,7 +346,7 @@ Please select what kind of key you want:
    (8) RSA (set your own capabilities)
 Your selection? 6
 RSA keys may be between 1024 and 4096 bits long.
-What keysize do you want? (2048) 
+What keysize do you want? (2048)
 Requested keysize is 2048 bits
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -363,10 +363,10 @@ some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
-sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S   
-sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E   
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
+sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E
 [ultimate] (1). Test User <test@test.com>
 [ultimate] (2)  Test User <test@megatestcorp.ca>
 [ultimate] (3)  Test User <test@keybase.io>
@@ -387,8 +387,8 @@ Please select what kind of key you want:
    (8) RSA (set your own capabilities)
 Your selection? 8
 
-Possible actions for a RSA key: Sign Encrypt Authenticate 
-Current allowed actions: Sign Encrypt 
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Sign Encrypt
 
    (S) Toggle the sign capability
    (E) Toggle the encrypt capability
@@ -397,8 +397,8 @@ Current allowed actions: Sign Encrypt
 
 Your selection? s
 
-Possible actions for a RSA key: Sign Encrypt Authenticate 
-Current allowed actions: Encrypt 
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Encrypt
 
    (S) Toggle the sign capability
    (E) Toggle the encrypt capability
@@ -407,8 +407,8 @@ Current allowed actions: Encrypt
 
 Your selection? e
 
-Possible actions for a RSA key: Sign Encrypt Authenticate 
-Current allowed actions: 
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions:
 
    (S) Toggle the sign capability
    (E) Toggle the encrypt capability
@@ -417,8 +417,8 @@ Current allowed actions:
 
 Your selection? a
 
-Possible actions for a RSA key: Sign Encrypt Authenticate 
-Current allowed actions: Authenticate 
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Authenticate
 
    (S) Toggle the sign capability
    (E) Toggle the encrypt capability
@@ -427,7 +427,7 @@ Current allowed actions: Authenticate
 
 Your selection? q
 RSA keys may be between 1024 and 4096 bits long.
-What keysize do you want? (2048) 
+What keysize do you want? (2048)
 Requested keysize is 2048 bits
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -444,11 +444,11 @@ some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
 
-pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC  
+pub  4096R/0x2896DB4A0E427716  created: 2015-04-15  expires: 2016-04-14  usage: SC
                                trust: ultimate      validity: ultimate
-sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S   
-sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E   
-sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A   
+sub  2048R/0x770A210849C9CBD7  created: 2015-04-15  expires: 2015-10-12  usage: S
+sub  2048R/0x6BF07F7DA7D84FFD  created: 2015-04-15  expires: 2015-10-12  usage: E
+sub  2048R/0x7B13B2E1879F1ED3  created: 2015-04-15  expires: 2015-10-12  usage: A
 [ultimate] (1). Test User <test@test.com>
 [ultimate] (2)  Test User <test@megatestcorp.ca>
 [ultimate] (3)  Test User <test@keybase.io>
@@ -472,7 +472,7 @@ Please select the reason for the revocation:
 (Probably you want to select 1 here)
 Your decision? 1
 Enter an optional description; end it with an empty line:
-> 
+>
 Reason for revocation: Key has been compromised
 (No description given)
 Is this okay? (y/N) y
@@ -567,19 +567,19 @@ Application ID ...: D2760001240102000006030189290000
 Version ..........: 2.0
 Manufacturer .....: Yubico
 Serial number ....: 03018929
-Name of cardholder: 
+Name of cardholder:
 Language prefs ...: en
-Sex ..............: 
-URL of public key : 
+Sex ..............:
+URL of public key :
 Login data .......: NA
 Signature PIN ....: forced
 Key attributes ...: 2048R 2048R 2048R
 Max. PIN lengths .: 127 127 127
 PIN retry counter : 3 3 3
 Signature counter : 0
-Signature key ....: 
-Encryption key....: 
-Authentication key: 
+Signature key ....:
+Encryption key....:
+Authentication key:
 General key info..: [none]
 
 gpg/card> admin
@@ -654,9 +654,9 @@ Key attributes ...: 2048R 2048R 2048R
 Max. PIN lengths .: 127 127 127
 PIN retry counter : 3 3 3
 Signature counter : 0
-Signature key ....: 
-Encryption key....: 
-Authentication key: 
+Signature key ....:
+Encryption key....:
+Authentication key:
 General key info..: [none]
 
 gpg/card> quit
@@ -888,21 +888,31 @@ enable-ssh-support
 write-env-file
 ```
 
-### Outstanding issues
+### Taming the gnome-keyring
+gnome-keyring is the bain of my existance...  It takes over the role of ssh-agent / gpg-agent with a broken implementation that doesn't support smart cards.  In addition, because it's now started through upstart, it's really [hard](https://bugs.launchpad.net/ubuntu/+source/gnome-keyring/+bug/884856) to [turn off](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=760102).
 
-#### gnome-keychain
-gnome-keychain is the bain of my existance...  It takes over the role of ssh-agent / gpg-agent with a broken implementation that doesn't support smart cards.  In addition, because it's now started through upstart, it's really [hard](https://bugs.launchpad.net/ubuntu/+source/gnome-keyring/+bug/884856) to [turn off](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=760102).
+There are nuggets of information all over the Internet that suggest by modifying the gnome-keyring-*.desktop files you can disable SSH and GPG support in gnome-keyring.  Unfortunately, it seems like (under Xubuntu at least) this isn't sufficient.  The first gnome app that gets nudged seems to cause gnome-keyring to start with all the components enabled.
 
-Until the gnome-keychain problem is resolved, the .bashrc / .zshrc code above means GPG and SSH in the terminal works fine and for apps like Thunderbird I can point them at a gpg-wrapper that loads it the correct environment first.  Another option is to completely disable gnome-keychain but that has other consequences with saved credentials in other apps. 
+The way I've managed to resolve it is:
 
-ie)
+Wrap /usr/bin/gnome-keyring-daemon to turn off gnome-keyring GPG and SSH (as root)
 
-/home/user/bin/gpg-wrapper
+<div class="warning">This obviously seems like a hack.  I'd appreciate any ideas on how better to resolve this.</div>
 
-```bash
-#!/bin/sh
-. ~/.gpg-agent-info
-gpg2 $*
+```
+$ mv /usr/bin/gnome-keyring-daemon /usr/bin/gnome-keyring-daemon-wrapper
+$ echo "#!/bin/sh" > /usr/bin/gnome-keyring-daemon
+$ echo "exec /usr/bin/gnome-keyring-daemon-wrapped --components=pkcs11,secrets \"$@\"" >> /usr/bin/gnome-keyring-daemon
+$ chmod +x /usr/bin/gnome-keyring-daemon
+```
+
+Modify the autostart scripts to turn off autostart for GPG and SSH components of gnome-keyring
+
+```
+$ cp /etc/xdg/autostart/gnome-keyring-gpg.desktop ~/.config/autostart
+$ cp /etc/xdg/autostart/gnome-keyring-ssh.desktop ~/.config/autostart
+$ echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/gnome-keyring-gpg.desktop
+$ echo "X-GNOME-Autostart-enabled=false" >> ~/.config/autostart/gnome-keyring-ssh.desktop
 ```
 
 ## Windows
@@ -926,7 +936,7 @@ GnuPG just works...  For example using Kleopatra's "Sign from clipboard" looks l
 
 Trying to login using SSH looks like this:
 
-![SSH PIN Prompt](windows/putty.png) 
+![SSH PIN Prompt](windows/putty.png)
 
 If the smart card isn't present then the above operations would fail immediately.
 
@@ -985,4 +995,4 @@ write-env-file
 
 # References
 
-- [Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/) - This post was my primary source for getting up and running with the Yubikey NEO and for structuring my sub-keys.  
+- [Offline GnuPG Master Key and Subkeys on YubiKey NEO Smartcard](http://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/) - This post was my primary source for getting up and running with the Yubikey NEO and for structuring my sub-keys.
