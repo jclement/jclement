@@ -891,6 +891,8 @@ write-env-file
 ### Taming the gnome-keyring
 gnome-keyring is the bain of my existance...  It takes over the role of ssh-agent / gpg-agent with a broken implementation that doesn't support smart cards.  In addition, because it's now started through upstart, it's really [hard](https://bugs.launchpad.net/ubuntu/+source/gnome-keyring/+bug/884856) to [turn off](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=760102).
 
+This would manifest itself by making "gpg --card-status" fail for non-root users.  Killing gnome-keyring and trying again made it clear that gnome-keyring was causing the issue and now device permissions.
+
 There are nuggets of information all over the Internet that suggest by modifying the gnome-keyring-*.desktop files you can disable SSH and GPG support in gnome-keyring.  Unfortunately, it seems like (under Xubuntu at least) this isn't sufficient.  The first gnome app that gets nudged seems to cause gnome-keyring to start with all the components enabled.
 
 The way I've managed to resolve it is:
