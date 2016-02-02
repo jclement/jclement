@@ -953,6 +953,7 @@ The following script has worked for me but screams THIS IS THE WRONG SOLUTION TO
 ```
 taskkill /f /im kleopatra.exe
 taskkill /f /im gpg-agent.exe
+taskkill /f /im scdaemon.exe
 "C:\Program Files (x86)\GNU\GnuPG\kleopatra.exe"
 ```
 
