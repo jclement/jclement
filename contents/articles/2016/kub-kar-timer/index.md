@@ -11,7 +11,7 @@ tocLevel: 2
 
 My boys are in Boy Scouts and the annual Kub Kar races are a big part of the program.   Our group has a couple older wooden tracks and I wanted to add a timer mechanism to them that would time and rank each car for each race.
 
-I decided to build this based on the Arduino platformi because I'm at lest somewhat familiar with it.
+I decided to build this based on the Arduino platform because I'm at lest somewhat familiar with it.
 
 ![In Place](inplace.jpg)
 
@@ -51,7 +51,7 @@ The source code for this entire project is up on [Bitbucket](https://bitbucket.o
 
 ## The Build
 
-I built the track from 1/2" baltic birch plywood.
+I built the track from 1/2" Baltic birch plywood.
 
 The only real concerns are making sure it's wide enough to straddle the track and high-enough to allow verticals to pass underneath without incident.
 
