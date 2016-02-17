@@ -9,9 +9,9 @@ toc: true
 tocLevel: 2
 ---
 
-My boys are in Boy Scouts and the annual Kub Kar races are a big part of the program.   Our group has a couple older wooden tracks and I wanted to add a timer mechanism to them that would time and rank each car for each race.
+My boys are in Boy Scouts and the annual Kub Kar races are a fun part of the program.   Our group has a couple older wooden tracks and I wanted to add a timer mechanism to them that would time and rank each car for each race.
 
-I decided to build this based on the Arduino platform because I'm at lest somewhat familiar with it.
+I decided to build this based on the Arduino platform because I'm at least somewhat familiar with it.
 
 ![In Place](inplace.jpg)
 
@@ -25,13 +25,13 @@ There are [companies that sell timers](http://www.besttrack.com/champ_timer.htm)
 
 ## The Trigger
 
-The complicated part of this project is detecting cars as they pass through finish gate.  Typically this would be done optically with the car breaking a beam and that stopping the clock.  However, I finally got after this project with three days before the race.  I didn't have any lasers or photo-sensors handy so I took an alternative and mechanical approach.
+The complicated part of this project is detecting cars as they pass through finish gate.  Typically this would be done optically with the car breaking a beam and that stopping the clock.  However, I finally started this project three days before the race.  I didn't have any lasers or photo-sensors handy so I took an alternative and mechanical approach.
 
 ![Trigger](trigger.jpg)
 
 I considered adding push buttons at the very end of the track but, given the speed some of the cars are going, I figured I'd either damage the buttons or the cars with that approach.
 
-The premise for my final solution was to dangle a conductive "wire" (lamp pull chain) across the track and the car will push it into another conductor closing a circuit.  Because the switch isn't in charge of stopping the car I figured this would hold up to the abuse better.
+The premise for my final solution was to dangle a conductive "wire" (lamp pull chain) across the track and the car will push it into another conductor (surrounding copper tube) closing a circuit.  Because the switch isn't in charge of stopping the car I figured this would hold up to the abuse better.
 
 ![Kub Kar on Track](kar.jpg)
 
@@ -55,4 +55,4 @@ I built the track from 1/2" Baltic birch plywood.
 
 The only real concerns are making sure it's wide enough to straddle the track and high-enough to allow verticals to pass underneath without incident.
 
-To finish it off the top is covered with a piece of 1/4" Lexan to allow everyone to see the interesting bits instead.
+The top is covered with a piece of 1/4" Lexan to allow everyone to see the interesting bits inside.
