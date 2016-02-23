@@ -3,8 +3,6 @@ title: Kub Kar Timer
 date: 2016-02-14
 template: article.jade
 comments: true
-draft: true
-suppress: true
 toc: true
 tocLevel: 2
 ---
@@ -12,6 +10,8 @@ tocLevel: 2
 My boys are in Boy Scouts and the annual Kub Kar races are a big part of the program.   Our group has a couple older wooden tracks and I wanted to add a timer mechanism to them that would time and rank each car for each race.
 
 I decided to build this based on the Arduino platform because I'm at lest somewhat familiar with it.
+
+<p class="note">Update 2016-02-21 - We had our first rally using this contraption and it worked flawlessly.  The kids loved it.</p>
 
 ![In Place](inplace.jpg)
 
@@ -35,9 +35,11 @@ The premise for my final solution was to dangle a conductive "wire" (lamp pull c
 
 ![Kub Kar on Track](kar.jpg)
 
-I ended up drilling a 1/2" hole in the underside of the timing platform and insert a 1" section of 1/2" copper pipe.  Directly through the center I dangled a chunk of steel lamp pull-chain.  The copper tubes are all tied to ground and the chains are tied to the Arduino's digital IO pins (with internal pullup resistors enabled).
+I ended up drilling a 1/2" hole in the underside of the timing platform and insert a 1" section of 1/2" copper pipe.  Directly through the center I dangled a chunk of steel lamp pull-chain.  The copper tubes are all tied to ground and the chains are tied to the Arduino's digital IO pins (with internal pull-up resistors enabled).
 
 <p class="note">With this design it's important that the chain in each lane is a few links too long and dangles on the lane.  This prevents the chain from swinging back and forth for ages and allows you to get on with the next race much faster.</p>
+
+For actually triggering the race I ran cables from the timer to the starting gate and then used some Allround as an improvised switch that was closed when the gate was up.  As soon as the gate drops the timer starts.
 
 ## The Display
 
