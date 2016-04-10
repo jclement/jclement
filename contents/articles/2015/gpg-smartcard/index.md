@@ -823,7 +823,7 @@ It's good to distribute your GPG public key so that people who want to get in to
 
 The traditional mechanism for sharing keys is through PGP key servers.  You can upload your key with <kbd>gpg2 --send-key 0x2896DB4A0E427716</kbd>.  Other users can then download your key using your ID (email) or your key ID - those users should then verify the key is yours by either (1) checking that key is signed by someone they trust or (2) verifying the fingerprint on the key.  There are many public key servers and they generally share keys so no need to push your key to more than one of them.
 
-[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys.  Instead of verifying the key through a web-of-trust or out-of-band fingerprint exchange you verify it by verifying publicly posted and signed statements of identity on various social platforms such as github, twitter, reddit, hacker news, etc.  This gives a good way of getting reasonable assurance that the key you receive belongs to the person that controls those accounts.  Currently keybase.io is in beta and is invite based.  I have spare invites so feel free to get in touch if this interests you.
+[keybase.io](https://keybase.io) is a great alternative to distributing GnuPG keys.  Instead of verifying the key through a web-of-trust or out-of-band fingerprint exchange you verify it by verifying publicly posted and signed statements of identity on various social platforms such as github, twitter, reddit, hacker news, etc.  This gives a good way of getting reasonable assurance that the key you receive belongs to the person that controls those accounts.  Currently keybase.io is in beta and is invite based.
 
 # Usage
 
