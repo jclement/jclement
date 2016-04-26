@@ -1,3 +1,3 @@
 # jclement.ca
 
-Website / blog for jclement.ca
+Website / blog for jfry.me
