@@ -4,7 +4,7 @@ https://keybase.io/jsc
 
 I hereby claim:
 
-  * I am an admin of https://jclement.ca
+  * I am an admin of https://jfry.me
   * I am jsc (https://keybase.io/jsc) on keybase.
   * I have a public key with fingerprint 6B42 6A57 875A E6A7 C910  EF91 4378 F71A B4EA 336E
 
@@ -12,33 +12,31 @@ To do so, I am signing this object:
 
 {
     "body": {
-        "client": {
-            "name": "keybase.io node.js client",
-            "version": "0.7.7"
-        },
         "key": {
+            "eldest_kid": "0101307a7d2cf4a49beb180fb19892394fb8d3cc14c5ad81b08a501bad6b5362fdea0a",
             "fingerprint": "6b426a57875ae6a7c910ef914378f71ab4ea336e",
             "host": "keybase.io",
-            "key_id": "4378F71AB4EA336E",
+            "key_id": "4378f71ab4ea336e",
+            "kid": "0101307a7d2cf4a49beb180fb19892394fb8d3cc14c5ad81b08a501bad6b5362fdea0a",
             "uid": "52e387e0223a2c0c439eae813f1d7700",
             "username": "jsc"
         },
-        "merkle_root": {
-            "ctime": 1427206829,
-            "hash": "d51d69cbac85b52dc4226c04fd95ce01ecc69a158b0b25f85b429b653a3318cece8d4c3ad0d1aff5d1754e59d34a932782ef9d00aafad7d3c260ebce189fede1",
-            "seqno": 183027
+        "revoke": {
+            "sig_ids": [
+                "513701d2e8c5de0482736016e0898695c453f384a2e2fe0c1cbacc5540df332d0f"
+            ]
         },
         "service": {
-            "hostname": "jclement.ca",
+            "hostname": "jfry.me",
             "protocol": "https:"
         },
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1427207127,
+    "ctime": 1461766204,
     "expire_in": 157680000,
-    "prev": "ac355cca1ac77a8da1f1c2eb00a98260501f27ebcca5b2e91e8572f8ef0ad32a",
-    "seqno": 26,
+    "prev": "e994f566282cf16c58344fe790217a898e8e5395997d05b3bb39a6f4c80af36c",
+    "seqno": 43,
     "tag": "signature"
 }
 
@@ -46,25 +44,24 @@ which yields the signature:
 
 -----BEGIN PGP MESSAGE-----
 
-owFVkl1sFUUYhk+pFDkooFeS9KJuTE2kPZmZ3dmZPWgpNa0l3nhjTRrqyezMN6fb
-n7OH3W21NkVr1KQKiYm0CRFJmyhG0EKEBLUXciGpQPxr+AuNEmqANFAbDV6I9We2
-gShztbPfM++87/fN2/dXZrIV/GjLHzc+LM9UnJ73M88+EJ8ftPxQDVj5QUv2BFBK
-0q+S6AUrb3XDgC9iyAVhTSlUkOuKa24zdVY/RHEQlgyFcizHrKG6FE8P66BUhKgc
-BamW5foOcQVlnFEBrmDSwwi0hx2bcc2w8B0Qtu2CkewM4+SuW61lzUKgzN+Ub2F4
-S5PTvMXwzabWt1ygBGzOABFiCyKRdGwPBHBsa6wYQygFY4huR+qKZWq1F6LuHihE
-YbicVyZBWsUOYQS5nHjGjIg7Da8oVq4nfSE59SlR0iHElcjRyqMSEAYpXU9gyn3k
-E6oN5BDPd6ltQmEuQQJXjrSFQgoLranCjDpAPWU7wrMJ48Q0QyEkhBaKKVsSF4Ev
-AXNPgwJs3MewvRQac9xGhA2l+6g/kJD6Tjt2J5jsgV4zmpwU5kw5CpNQhj2m0Jkk
-5Tifhk4Gyin5AviFZY2PJBT8oKTMvP4/UGzQuxrCMGF1FrxYDiIoBClBmcuRWelF
-0G80hbQplVJgIRkTXAmssSTgm2AeN5EowpowE0wK6hPwMHDKiOagkVA2Ef/FJK4x
-KopGMw6KJZH0RWANjVRU35OpyGaqVq5In2wmu3r9nXe8J1j1T7t9GV/YtCM4O9sy
-Oz068TTZty5b/Xrj3rjB2/Vt1cKBEdWfHDz6U/Dp3GIxC6eHr1y48dCheGz3443b
-aifdpcGdbfXFL9c2PBZ+vfvB+Oq64bmhA5c2tn0z/ok4cuKr/ZuPzHTt/+3W33Tu
-nZrndsS6qfLNw5Mb81v3Nef8kfbWE49+Xz+eP9a4pN/3Pti7qfq+9lsdi5M/39tx
-8wdx/F29MDVzc37P8HtzMPrIteltrW+NTeH6XzZcX+qdYFO1478f/vGzi3+OPTPx
-8sjOvmsLr5y6VKXWtJ75bvrXlScvr+luqP2i8eHnO449eeZQ5cerPt/w11NNo7uu
-vzS/ebbttSdWzL96bu0bWxfxvw==
-=nGay
+owGtUm9olVUcvlOb7vbHxArCteSQiDH1/D/nvUUQwSKsJJ0ZG+16znnPO9/uvO/d
++16nt7X+sCRilsuFLR3WRrBoyCRs+EGEOXGKTNiQvsyoD47lGFS2LwVB5x34rY+d
+L4fz43me3/N7zq/3wZWZbJU81/DX4nBppur6HZ3Zu/Hqvk6gI78Ccp2gYJcv2+bb
+pJwvhD7IAYggIlAo4WMTUEU9bTWSMNDIkx4mHg209IkxiBqmfIk0lIpBpJXPNSMc
+B75VUIF6EITFVhuX4rBYdrJcU8wVE1IwZbkSxkPQBh6iRMhAIKWpVYRw64j7oyRl
+OHNaJXZbGLmae+SX7f0H/n/2fXBZjmFLpLAQY6KwgYYSzyorEQmQLwSEKTCxcVEd
+sA79VmJAVz2IbUdUsGmkSdjq/CYg1wwYIgIiH1tpmG8hlVgQDhG3UHqSe8xQRgIi
+qcIWBxYaZLQyhjEK/YAQ7MMAvOm0XbOO0CyLpwHdaxzElW0H0hRKcVSOTNTmivvL
+5VKSSw2VK6UUdcjqfMofcQJ5HRZ99zWO0mHjJIyKIIcc1JTDVBFRjgTnGNJ6YA+X
+wtjmwxTBBJfQnbSR7XCa1nORMoeULm/EDZOE0sAKD2IklBvNSsuIxzxP+JBpojXx
+FA+okVAFhBuQjtRejECOEmdUtTpNl1pRlQ/GFnRlP66qXZWpymaq71uRLm0mW/Pw
+vU1ec2pNpqd56/aW6onHBnb/dnzom7GXrp5f+mAahFtefPzpscqpK7X7Cjte2/hq
+82D7e00jnX3rWvrnJ2tHNr9RKOEfL61YzHyVXVX3xPinM2Mf9TV8+wzWPd0D01Pd
+/2y+cHML39ky92TT72e/vvFCU2N+8siu9t6zlfevNJ47crfw3P19t1Zfn2u5QOfZ
+4taT/bmf3j6x9PmHw+8Ozdbc7p7tevlY3WR+z+BC/5fJ7UfXH/1FPPtAY27D0aUd
+1Z/98M7p7UMTh6/Nfbf7i9FB+Gdd8dLahZ9fr/nj11caSrdG1+/Kjk8kl6fObJo8
+8ffFtuEBM3L8qZM7j80cGpomd2dHv29dPbthoWdq/PmH7nzyyHzvvw==
+=FY5+
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
