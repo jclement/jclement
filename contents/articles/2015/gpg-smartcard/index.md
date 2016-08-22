@@ -957,6 +957,13 @@ taskkill /f /im scdaemon.exe
 "C:\Program Files (x86)\GNU\GnuPG\kleopatra.exe"
 ```
 
+Update Aug 2016: I've recently switched to this somewhat less extreme script and have had slightly fewer problems.
+
+```
+"C:\Program Files (x86)\GNU\GnuPG\gpg-connect-agent" killagent /bye
+"C:\Program Files (x86)\GNU\GnuPG\gpg-connect-agent" /bye
+```
+
 ## OSX
 ### Required software
 
