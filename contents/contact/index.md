@@ -22,11 +22,6 @@ template: page.jade
 </tr>
 
 <tr>
-<th>Telegram:</th>
-<td><a href="https://telegram.me/charsplat">charsplat</a></td>
-</tr>
-
-<tr>
 <th><a href="http://www.gnupg.org/">GnuPG</a>:</th>
 <td><a href="https://keybase.io/jsc">0x4378F71AB4EA336E</a><br />
 6B42 6A57 875A E6A7 C910 EF91 4378 F71A B4EA 336E<br />
