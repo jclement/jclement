@@ -17,7 +17,7 @@ template: page.jade
 <tr>
 <th>Signal:</th>
 <td>
-05 8c b6 cc 27 92 9e 8e 29 88 09 45 36 60 af c7 c2 40 c3 3b d6 6b 02 26 77 41 eb a5 7c 3e 77 d5 27
+05 85 eb ef 51 ce 0e 89 e7 b2 65 a1 0b 1b bb 93 32 34 b8 1a 2d ee 83 0a 59 70 05 75 1d 5e f3 9c 68
 </td>
 </tr>
 
