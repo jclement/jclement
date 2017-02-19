@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/jsc
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.jfry.me
+  * I am jsc (https://keybase.io/jsc) on keybase.
+  * I have a public key ASBMClel-k01_-4pveeL7Cn1skl83b1DdzOEe3tfrYuCWAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101307a7d2cf4a49beb180fb19892394fb8d3cc14c5ad81b08a501bad6b5362fdea0a",
+            "host": "keybase.io",
+            "kid": "01204c0a57a5fa4d35ffee29bde78bec29f5b2497cddbd437733847b7b5fad8b82580a",
+            "uid": "52e387e0223a2c0c439eae813f1d7700",
+            "username": "jsc"
+        },
+        "service": {
+            "hostname": "www.jfry.me",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.18"
+    },
+    "ctime": 1487472672,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1487472665,
+        "hash": "50e6dd9838b39501de204fbda0e2892c3ea78e077086e09e4ea5ac248d2150a97d0da305845c4d9f678e2ccaad289ddc029d8d5e5ccc27d606081905cfef0071",
+        "seqno": 904642
+    },
+    "prev": "5860fb69d69a4438a58f05d6f2030eda5c856f8e5f20a3d527c4c8c9de2c1faa",
+    "seqno": 63,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgTApXpfpNNf/uKb3ni+wp9bJJfN29Q3czhHt7X62LglgKp3BheWxvYWTFAu97ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxMzA3YTdkMmNmNGE0OWJlYjE4MGZiMTk4OTIzOTRmYjhkM2NjMTRjNWFkODFiMDhhNTAxYmFkNmI1MzYyZmRlYTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNGMwYTU3YTVmYTRkMzVmZmVlMjliZGU3OGJlYzI5ZjViMjQ5N2NkZGJkNDM3NzMzODQ3YjdiNWZhZDhiODI1ODBhIiwidWlkIjoiNTJlMzg3ZTAyMjNhMmMwYzQzOWVhZTgxM2YxZDc3MDAiLCJ1c2VybmFtZSI6ImpzYyJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoid3d3LmpmcnkubWUiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4xOCJ9LCJjdGltZSI6MTQ4NzQ3MjY3MiwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNDg3NDcyNjY1LCJoYXNoIjoiNTBlNmRkOTgzOGIzOTUwMWRlMjA0ZmJkYTBlMjg5MmMzZWE3OGUwNzcwODZlMDllNGVhNWFjMjQ4ZDIxNTBhOTdkMGRhMzA1ODQ1YzRkOWY2NzhlMmNjYWFkMjg5ZGRjMDI5ZDhkNWU1Y2NjMjdkNjA2MDgxOTA1Y2ZlZjAwNzEiLCJzZXFubyI6OTA0NjQyfSwicHJldiI6IjU4NjBmYjY5ZDY5YTQ0MzhhNThmMDVkNmYyMDMwZWRhNWM4NTZmOGU1ZjIwYTNkNTI3YzRjOGM5ZGUyYzFmYWEiLCJzZXFubyI6NjMsInRhZyI6InNpZ25hdHVyZSJ9o3NpZ8RAMCDXnvzN5Gp8oAlwMNeInwfA29DmACIfnLxsa0yhR1tFmGAWG2y5J8UY/gZeu/erTILJkNxKqROemGkL8S/xDqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEINP/YDjw7MwtzE0GGDkBquodRmRDxoqHGp+AolZ7Nb71o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jsc
+
+==================================================================
