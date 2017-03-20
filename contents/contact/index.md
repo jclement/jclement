@@ -15,10 +15,8 @@ template: page.jade
 </tr>
 
 <tr>
-<th>Signal:</th>
-<td>
-05 85 eb ef 51 ce 0e 89 e7 b2 65 a1 0b 1b bb 93 32 34 b8 1a 2d ee 83 0a 59 70 05 75 1d 5e f3 9c 68
-</td>
+<th><a href="https://minilock.io">miniLock</a>:</th>
+<td>E5ixYxaMwwejNb85z2m9SG91sAA5BY9Csk8zJ5xNe8rQg</td>
 </tr>
 
 <tr>
@@ -44,19 +42,9 @@ template: page.jade
 </tr>
 
 <tr>
-<th>Namecoin:</th>
-<td><a href="http://explorer.namecoin.info/n/id/jclement">id/jclement</a></td>
-</tr>
-
-<tr>
 <tr>
 <th>Geocaching.com:</th>
 <td><a href="http://www.geocaching.com/profile/?guid=f51076ec-b6e9-4acc-ae68-a8855c024edf">iMinions</a></td>
-</tr>
-
-<tr>
-<th><a href="https://threema.ch/en/">Threema</a>:</th>
-<td><a href="threema.png"><img src="threema.png" alt="Threema Address" width="150" height="151" /></a></td>
 </tr>
 
 </tbody>
