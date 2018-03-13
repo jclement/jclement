@@ -508,7 +508,7 @@ gY2OYVpEhMQ4Kblpx03YX25U
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
-Now **backup** the GPG keys on a separate USB stick (actually make two copies).
+Now **backup** the GPG keys on a separate USB stick (actually make two copies) and also make sure to backup the passphrase you used to encrypt your private key.
 
 The easy option is backup the whole .gnupg folder with tar <kbd>tar -czf gnupg-backup.tgz ~/.gnupg</kbd>.  Assuming I've mounted a USB stick under */media/BACKUP* the following would work:
 
